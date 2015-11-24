@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+	<select id="findStuBySno" parameterType="String" resultType="com.mypack.Student">
+		SELECT SNO, SNAME, SSEX, SBIRTHDAY, CLASS FROM `student` 
+		where SNO = #{id} 
+		LIMIT 1
+	</select>
+</mapper>
