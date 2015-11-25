@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+           
+     
+	<!-- spring的属性加载器，加载properties文件中的属性 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:dataSource.properties</value>
+		</property>
+		<property name="fileEncoding" value="utf-8" />
+	</bean>
+           
+	<!--扫描com.tsgl包下的所有类交给spring管理-->
+	<context:component-scan base-package = "com.mypack"/>
+	
+	
+	<!--配置数据源-->
+	<bean id = "dataSource" class = "com.mchange.v2.c3p0.ComboPooledDataSource">
+	    <property name = "driverClass" value = "${db.driverClass}"/>
+	    
+	    <property name = "jdbcUrl" value = "${db.jdbcUrl}"/>
+	    
+	    <property name = "user" value = "${db.user}"/>
+	    
+	    <property name = "password" value = "${db.password}"/>
+	    
+	    <property name = "initialPoolSize" value = "${db.initialPoolSize}"/>
+	    
+	    <property name = "minPoolSize" value = "${db.minPoolSize}"/>
+	    
+	    <property name = "maxPoolSize" value = "${db.maxPoolSize}"/>
+	    
+	    <property name = "maxIdleTime" value = "${db.maxIdleTime}"/>
+	    
+	    <property name = "acquireIncrement" value = "${db.acquireIncrement}"/>
+	    
+	    <property name = "idleConnectionTestPeriod" value = "${db.idleConnectionTestPeriod}"/>
+	</bean>
+	
+	<!-- sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+    	<!-- 自动扫描mapping.xml文件 -->  
+<!--         <property name="mapperLocations" value="classpath:com/cn/hnust/mapping/*.xml"></property> -->
+ 		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+	</bean>
+	
+	<!-- mapper扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mypack" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>           
+</beans>
