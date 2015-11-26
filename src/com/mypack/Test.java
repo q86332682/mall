@@ -27,5 +27,6 @@ public class Test
 		Student stu = sqlSession.selectOne("test.findStuBySno", "sn1");
 		System.out.println(stu.getSNO() + "," + stu.getSNAME() + "," + stu.getSSEX());
 		sqlSession.close();
+		
 	}
 }

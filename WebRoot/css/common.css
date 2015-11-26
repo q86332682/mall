@@ -14,13 +14,13 @@ a:hover {  text-decoration: underline; }
 校验样式
 *******************/
 /*提示框样式*/
-form.validate  span.tip.note{border:1px solid #99CCFF;padding:3px 5px 3px 25px;background:#EEF7FD url(../images/validate.gif) no-repeat scroll 5px -3px;margin-left:5px;float:left;display:inline;height:18px;line-height:18px;}
+form.validate  span.tip.note{border:1px solid #99CCFF;padding:3px 5px 3px 25px;background:#EEF7FD url(../img/validate.gif) no-repeat scroll 5px -3px;margin-left:5px;float:left;display:inline;height:18px;line-height:18px;}
 
 /*校验成功样式*/
-form.validate span.tip.ok{display:inline-block;width:15px;height:15px;margin-left:3px;background:url(../images/validate.gif) no-repeat scroll 0 -57px;vertical-align:middle;}
+form.validate span.tip.ok{display:inline-block;width:15px;height:15px;margin-left:3px;background:url(../img/validate.gif) no-repeat scroll 0 -57px;vertical-align:middle;}
 
 /*校验失败样式*/
-form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-repeat scroll 5px -29px;padding:3px 5px 3px 25px;margin-left:5px;border:1px solid #D37575;float:left;display:inline;height:18px;line-height:18px;}
+form.validate span.tip.error{background:#FEEBEB url(../img/validate.gif) no-repeat scroll 5px -29px;padding:3px 5px 3px 25px;margin-left:5px;border:1px solid #D37575;float:left;display:inline;height:18px;line-height:18px;}
 
 
 /********************************************************
@@ -36,7 +36,7 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 ***************************************************************/
 #hreder .util_bar{height:35px;float:right;display:inline;}
 #hreder .util_bar li{padding:0px 10px;float:left;display:inline;border-left:1px solid #424242;text-align:center;}
-#hreder .util_bar li.phone{background:url(../images/400phone.jpg) no-repeat left top;padding-left:25px;border-left:0;}
+#hreder .util_bar li.phone{background:url(../img/400phone.jpg) no-repeat left top;padding-left:25px;border-left:0;}
 #hreder .util_bar li.first{border-left:0}
 
 
@@ -46,7 +46,7 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 #cart_bar_wrapper{position:relative;z-index:8888;}
 #cart_bar_wrapper img.loading{margin:5px 0 5px -30px}
 #cart_bar_wrapper .content{width:438px;position:absolute;left:-150px;}
-#cart_bar_wrapper .border{width:440px;height:12px;background:url(../images/gwctbbj.jpg) no-repeat left top;}
+#cart_bar_wrapper .border{width:440px;height:12px;background:url(../img/gwctbbj.jpg) no-repeat left top;}
 #cart_bar_wrapper .cart_list{line-height:25px;background-color:#fff;overflow:hidden;width:437px;border:2px solid #49a9cf;border-top:0}
 #cart_bar_wrapper .cart_list .item{padding:10px;}
 #cart_bar_wrapper .cart_list .dashed_line{margin:0 10px;}
@@ -89,9 +89,9 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
-	background: url(../images/dhctbj.jpg) repeat-x left top;
+	background: url(../img/dhctbj.jpg) repeat-x left top;
 }
-#nav_menu li.selected{background:url(../images/dhxtbj.jpg) repeat-x left top;}
+#nav_menu li.selected{background:url(../img/dhxtbj.jpg) repeat-x left top;}
 #nav_menu li.last{margin-right:0px}
 
 #nav_menu a:hover{text-decoration: none;}
@@ -104,7 +104,7 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 ***/
 #nav_menu li span{display:none}
 #nav_menu li.haschild span{
- 	background: url("../images/dhnn.jpg") no-repeat scroll left -5px transparent;
+ 	background: url("../img/dhnn.jpg") no-repeat scroll left -5px transparent;
     display: block;
     height: 4px;
     overflow: hidden;
@@ -112,18 +112,18 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
     position:absolute;
     right:7px;top:23px;
 }
-#nav_menu li.selected span{background:url(../images/dhnn.jpg) no-repeat left top;}
+#nav_menu li.selected span{background:url(../img/dhnn.jpg) no-repeat left top;}
 
 
 /***
 导航-头尾的圆角
 ***/
 #nav_menu li em{width:4px;height:50px;display:none;}
-#nav_menu li em.first {display:block;background:url(../images/dhctzc.jpg) no-repeat left top;float:left}
-#nav_menu li em.last{display:block;background:url(../images/dhctyc.jpg) no-repeat left top;position:absolute;right:0px;top:0px;}
-#nav_menu li.haschild em.last{display:block;background:url(../images/dhctyc.jpg) no-repeat left top;float:right;margin-right: -12px; }
-#nav_menu li.selected em.first{background:url(../images/dhxtzc.jpg) no-repeat left top;}
-#nav_menu li.selected em.last{background:url(../images/dhxtyc.jpg) no-repeat left top;}
+#nav_menu li em.first {display:block;background:url(../img/dhctzc.jpg) no-repeat left top;float:left}
+#nav_menu li em.last{display:block;background:url(../img/dhctyc.jpg) no-repeat left top;position:absolute;right:0px;top:0px;}
+#nav_menu li.haschild em.last{display:block;background:url(../img/dhctyc.jpg) no-repeat left top;float:right;margin-right: -12px; }
+#nav_menu li.selected em.first{background:url(../img/dhxtzc.jpg) no-repeat left top;}
+#nav_menu li.selected em.last{background:url(../img/dhxtyc.jpg) no-repeat left top;}
 
 
 /***
@@ -152,7 +152,7 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 /*******************************************************************************
 搜索-搜索板块
 *********************************************************************************/
-#search_bar .search{overflow:hidden;width:269px;padding:1px 0px 0px 33px;height:24px;line-height:24px;float:right;display:inline;background:url(../images/ss.jpg) no-repeat left top;margin-left:15px;}
+#search_bar .search{overflow:hidden;width:269px;padding:1px 0px 0px 33px;height:24px;line-height:24px;float:right;display:inline;background:url(../img/ss.jpg) no-repeat left top;margin-left:15px;}
 #search_bar .search .hunt{border:0px none;padding:0px;margin:0px;width:201px;height:22px;line-height:22px;float:left;display:inline;}
 #search_bar .search .s_seek{border:0px none;padding:1px 0px 0px 0px;margin:0px;width:68px;height:22px;float:left;display:inline;background:none;margin-top:-1px;color:#fff;}
 
@@ -165,9 +165,9 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 #service .inner_con  div.box{width:142px;margin-right:20px;height:103px;float:left;display:inline;}
 #service .inner_con  div h1{font-size:14px;float:right;display:inline;width:82px;padding-left:19px;height:34px;line-height:34px;color:#6f6f6f;}
 #service .inner_con  div ul{float:right;display:inline;width:111px;height:69px;overflow:hidden;}
-#service .inner_con  div ul li{width:83px;padding-left:18px;background:url(../images/sylibj.jpg) no-repeat left center;}
+#service .inner_con  div ul li{width:83px;padding-left:18px;background:url(../img/sylibj.jpg) no-repeat left center;}
 #service .inner_con  div ul li a{color:#717171;}
-#service .inner_con  div span{width:41px;height:41px;float:left;display:inline;background:url(../images/bzbj.jpg) no-repeat left top;}
+#service .inner_con  div span{width:41px;height:41px;float:left;display:inline;background:url(../img/bzbj.jpg) no-repeat left top;}
 #service .inner_con  .use span{background-position:0 -210px;}
 #service .inner_con  .pay span{background-position:0 -168px;}
 #service .inner_con  .ship span{background-position:0 -126px;}
@@ -180,23 +180,23 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 在线客服-service.html
 **************************************************************************/
 #serv_online{width:241px;overflow:hidden;}
-#serv_online h1{text-align:center;width:18px;margin-top:56px;padding:31px 5px 0px 5px;height:93px;color:#fff;font-weight:normal;float:left;display:inline;background:url(../images/zxkebt.jpg) no-repeat left top;}
+#serv_online h1{text-align:center;width:18px;margin-top:56px;padding:31px 5px 0px 5px;height:93px;color:#fff;font-weight:normal;float:left;display:inline;background:url(../img/zxkebt.jpg) no-repeat left top;}
 #serv_online .ser_right{background-color:#e3e3e0;width:213px;overflow:hidden;float:left;display:inline;}
-#serv_online .ser_right h2{background:url(../images/zxkeh2bj.jpg) repeat-x left top;width:213px;height:31px;}
+#serv_online .ser_right h2{background:url(../img/zxkeh2bj.jpg) repeat-x left top;width:213px;height:31px;}
 #serv_online .ser_right div{width:152px;margin:0px 9px 0px 8px;}
 #serv_online .ser_right div h3{font-weight:normal;color:#6c6c6c;width:152px;}
 #serv_online .ser_right div p{color:#6c6c6c;height:30px;line-height:30px;font-size:14px;}
-#serv_online .ser_right .ser_hourhot{background:url(../images/zxkfdivbj.jpg) no-repeat left 10px;height:36px;padding:15px 0px 10px 44px;border-bottom:1px solid #bfbfbd;}
-#serv_online .ser_right .ser_qq{border-bottom:1px solid #bfbfbd;background:url(../images/zxkeqq.jpg) no-repeat left 10px;padding:9px 0px 9px 44px;}
-#serv_online .ser_right .ser_qq a{display:block;width:55px;height:22px;line-height:22px;color:#3ca0c8;background:url(../images/zxkeqqbj.jpg) no-repeat left top;padding-left:26px;}
-#serv_online .ser_right .ser_msn{padding:10px 0px 5px 44px;background:url(../images/zxkfdivbj.jpg) no-repeat left -140px;}
-#serv_online .ser_right .ser_msn a{display:block;width:57px;height:35px;padding-left:24px;line-height:35px;background:url(../images/zxmsnbj.jpg) no-repeat left top;color:#3ca0c8;}
+#serv_online .ser_right .ser_hourhot{background:url(../img/zxkfdivbj.jpg) no-repeat left 10px;height:36px;padding:15px 0px 10px 44px;border-bottom:1px solid #bfbfbd;}
+#serv_online .ser_right .ser_qq{border-bottom:1px solid #bfbfbd;background:url(../img/zxkeqq.jpg) no-repeat left 10px;padding:9px 0px 9px 44px;}
+#serv_online .ser_right .ser_qq a{display:block;width:55px;height:22px;line-height:22px;color:#3ca0c8;background:url(../img/zxkeqqbj.jpg) no-repeat left top;padding-left:26px;}
+#serv_online .ser_right .ser_msn{padding:10px 0px 5px 44px;background:url(../img/zxkfdivbj.jpg) no-repeat left -140px;}
+#serv_online .ser_right .ser_msn a{display:block;width:57px;height:35px;padding-left:24px;line-height:35px;background:url(../img/zxmsnbj.jpg) no-repeat left top;color:#3ca0c8;}
 
 /*************************************************************************
 页脚
 ***************************************************************************/
 #footer{width:980px;margin:0px auto;text-align:center;clear:both;}
-#footer img{margin-right:10px}
+#footer ../img{margin-right:10px}
 #footer p{line-height:30px;color:#666;clear:both;}
 
 /*******************************************************
@@ -225,11 +225,11 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 *****************************************************************/
 .goods_list_box{width:200px;overflow:hidden;float:left;}
 .goods_list_box h1{height:32px;line-height:32px;padding-left:48px;color:#fff;font-size:14px;font-weight:bold;}
-.goods_list_box h1 span{background: url("../images/background-24.png") no-repeat scroll 0 0 transparent; _background: url("../images/background-8.png") no-repeat scroll 0 0 transparent; display: block; float: left; height: 27px;  margin-right: 15px; margin-top: 2px; width: 30px;}
+.goods_list_box h1 span{background: url("../img/background-24.png") no-repeat scroll 0 0 transparent; _background: url("../img/background-8.png") no-repeat scroll 0 0 transparent; display: block; float: left; height: 27px;  margin-right: 15px; margin-top: 2px; width: 30px;}
 .goods_list_box ul{padding:10px;overflow:hidden;}
 .goods_list_box ul li{height:60px;overflow:hidden;border-top:1px solid #e7e7e4;padding:6px 0px 8px 0px;width:180px;}
 .goods_list_box ul li.first{border-top:0;margin-top:0; }
-.goods_list_box ul li img{width:56px;height:56px;padding:2px;border: 1px solid #CCCCCC;float:left;display:inline;margin-right:5px;float:left;display:inline;}
+.goods_list_box ul li ../img{width:56px;height:56px;padding:2px;border: 1px solid #CCCCCC;float:left;display:inline;margin-right:5px;float:left;display:inline;}
 .goods_list_box ul li .q_intro{width:113px;height:60px;float:left;display:inline;}
 .goods_list_box ul li .q_intro div h2{height:40px;line-height:20px;}
 
@@ -274,16 +274,16 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 *************************************************************************/
 .gl_adv{width:182px;overflow:hidden;padding:0px 9px 5px 9px;background-color:#F5F5F1;}
 .gl_adv .slideshow{width:182px;overflow:hidden;margin:3px 0px 5px;}
-.gl_adv .slideshow .active img{width:182px;}
-.gl_adv a img{width:182px;}
+.gl_adv .slideshow .active ../img{width:182px;}
+.gl_adv a ../img{width:182px;}
 
 /***
 公用提示页面样式
 **/
 .top_space{width:980px;height:8px;border-top:1px solid #e7e8e4;margin:0px auto;}
-.tip_wrap{width:978px;border:1px solid #e2e2df;background:url(../images/cgbj.jpg) repeat left top;height:267px;overflow:hidden;margin:0px auto;}
-.tip_wrap .success h1{margin-top:20px;padding-left:199px;height:60px;line-height:60px;font-size:18px;color:#64c000;background:url(../images/dxl.jpg) no-repeat 106px top;}
-.tip_wrap .error h1{margin-top:45px;padding-left:199px;height:60px;line-height:60px;font-size:18px;color:#fd834c;background:url(../images/lose.jpg) no-repeat 106px top;}
+.tip_wrap{width:978px;border:1px solid #e2e2df;background:url(../img/cgbj.jpg) repeat left top;height:267px;overflow:hidden;margin:0px auto;}
+.tip_wrap .success h1{margin-top:20px;padding-left:199px;height:60px;line-height:60px;font-size:18px;color:#64c000;background:url(../img/dxl.jpg) no-repeat 106px top;}
+.tip_wrap .error h1{margin-top:45px;padding-left:199px;height:60px;line-height:60px;font-size:18px;color:#fd834c;background:url(../img/lose.jpg) no-repeat 106px top;}
 .tip_wrap ol li{width:112px;height:30px;margin-left:198px;}
 .tip_wrap ol li a{display:block;color:#4b4c47;width:112px;height:30px;text-align:center;line-height:30px;}
 .tip_wrap p{height:61px;line-height:61px;width:400px;padding-left:202px;}
@@ -296,4 +296,4 @@ form.validate span.tip.error{background:#FEEBEB url(../images/validate.gif) no-r
 增加css
 ********************************/
 .index_gocart{width:100%;height:24px;margin:10px 0px;clear:both;overflow:hidden;}
-.index_gocart a{display:block;float:right;margin-right:20px;width:70px;height:24px;background:url(../images/indexgocart.jpg) no-repeat left top;color:#fff;text-align:center;line-height:24px;}
+.index_gocart a{display:block;float:right;margin-right:20px;width:70px;height:24px;background:url(../img/indexgocart.jpg) no-repeat left top;color:#fff;text-align:center;line-height:24px;}

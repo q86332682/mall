@@ -3,9 +3,9 @@
 首页-商品分类
 ************************************************************************/
 #cat_wrapper{width:188px;padding-left:12px;float:left;display:inline;margin-right:5px;background-color:#f5f5f1;}
-#cat_wrapper h1{width:149px;color:#333;font-size:14px;font-weight:bold;margin-left:9px;padding-left:30px;height:41px;line-height:41px;background:url(../images/syhibj.jpg) no-repeat left center;}
+#cat_wrapper h1{width:149px;color:#333;font-size:14px;font-weight:bold;margin-left:9px;padding-left:30px;height:41px;line-height:41px;background:url(../img/syhibj.jpg) no-repeat left center;}
 #cat_wrapper ul{width:188px;}
-#cat_wrapper ul li{width:151px;white-space:nowrap;height:38px;line-height:38px;border-top:1px solid #e4e4e1;background:url(../images/sysplbbj.jpg) no-repeat left center;padding-left:24px;}
+#cat_wrapper ul li{width:151px;white-space:nowrap;height:38px;line-height:38px;border-top:1px solid #e4e4e1;background:url(../img/sysplbbj.jpg) no-repeat left center;padding-left:24px;}
 #cat_wrapper ul li a{color:#53a0be;}
 
 
@@ -13,10 +13,10 @@
 首页-商品分类-下拉菜单
 *************************************************************************************/
 #cat_wrapper ul .selected{position:relative;z-index:1001;padding:0px;margin-left:-12px;}
-#cat_wrapper ul .selected a.menu{position:absolute;color:#6c6c6c;z-index:1002;font-weight:bold;display:block;background:url(../images/zctccd1.gif) no-repeat left top;line-height:41px;height:43px;padding-left:36px;width:144px;}
+#cat_wrapper ul .selected a.menu{position:absolute;color:#6c6c6c;z-index:1002;font-weight:bold;display:block;background:url(../img/zctccd1.gif) no-repeat left top;line-height:41px;height:43px;padding-left:36px;width:144px;}
 #cat_wrapper ul .child{position:absolute;left:179px;top:0px;width:417px;display:none;}
-#cat_wrapper ul .child .top{overflow:hidden;padding:0px;margin:0px;width:417px;height:4px;background:url(../images/ys.png) no-repeat left top;}
-#cat_wrapper ul .child .bottom{overflow:hidden;margin:0px;width:417px;height:4px;background:url(../images/zctccdxb.gif) no-repeat left top;}
+#cat_wrapper ul .child .top{overflow:hidden;padding:0px;margin:0px;width:417px;height:4px;background:url(../img/ys.png) no-repeat left top;}
+#cat_wrapper ul .child .bottom{overflow:hidden;margin:0px;width:417px;height:4px;background:url(../img/zctccdxb.gif) no-repeat left top;}
 #cat_wrapper ul .child .con{background-color:#fff;overflow:hidden;width:416px;border-left:1px solid #3c7f99;border-right:1px solid #3c7f99;padding:0px;margin:0px;}
 #cat_wrapper ul .child .con .inner_con{width:380px;overflow:hidden;margin:4px 12px 0px 18px;}
 #cat_wrapper ul .child .con .last{border:0px none;}
@@ -58,7 +58,7 @@
 #floor_1 .right .unusual ul li{width:246px;position:relative;height:158px;border:1px solid #b2b2b2;float:left;display:inline;margin-right:15px;}
 #floor_1 .right .unusual ul li.last{margin-right:0}
 #floor_1 .right .unusual ul li img{width:246px;height:158px;}
-#floor_1 .right .unusual ul li span{width:45px;height:22px;background:url(../images/syx.gif) no-repeat left top;position:absolute;left:0px;top:10px;}
+#floor_1 .right .unusual ul li span{width:45px;height:22px;background:url(../img/syx.gif) no-repeat left top;position:absolute;left:0px;top:10px;}
 
 
 /*************************************************************
@@ -99,7 +99,7 @@
 .same .title ul li{float:left;display:inline;text-align:center;}
 .same .title ul li a{display:block;padding:0px 8px;border-left:1px solid #8f8e8f;color:#828282;}
 .same .title ul .last a{border-right:1px solid #8f8e8f;}
-.same .title span{width:44px;height:16px;float:right;margin-top:20px;display:right;background:url(../images/sygd.jpg) no-repeat left top;}
+.same .title span{width:44px;height:16px;float:right;margin-top:20px;display:right;background:url(../img/sygd.jpg) no-repeat left top;}
 
 /*******************************************************************
 第三层-相同内容-大幅图片

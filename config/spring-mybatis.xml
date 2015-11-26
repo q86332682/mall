@@ -2,12 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
            http://www.springframework.org/schema/tx
            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
            
@@ -21,7 +24,7 @@
 		<property name="fileEncoding" value="utf-8" />
 	</bean>
            
-	<!--扫描com.tsgl包下的所有类交给spring管理-->
+	<!--扫描com.mypack包下的所有类交给spring管理-->
 	<context:component-scan base-package = "com.mypack"/>
 	
 	
@@ -60,5 +63,31 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.mypack" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-	</bean>           
+	</bean>
+	
+    <!-- 配置事务管理 -->  
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>
+
+    <!-- 通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    	<!-- 传播行为 -->
+    	<tx:attributes>
+    		<tx:method name="insert*" propagation="REQUIRED" />
+    		<tx:method name="update*" propagation="REQUIRED" />
+    		<tx:method name="delete*" propagation="REQUIRED" />
+    		<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+    		<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+    		<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+    	</tx:attributes>
+    </tx:advice>
+    
+    <!-- aop事物 -->
+    <aop:config>
+    	<aop:pointcut id="allServiceMethods"  
+                  expression="execution(* com.mypack.*.*(..))"/> 
+    	<aop:advisor advice-ref="txAdvice" pointcut-ref="allServiceMethods" />
+    </aop:config> 
 </beans>

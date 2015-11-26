@@ -1,4 +1,4 @@
-.btn input,.btn a{overflow:hidden;float:left;display:block;margin-left:10px;cursor:pointer;border:0px none;text-align:center;padding:0px;font-size:14px;font-weight:bold;color:#fff;background:url(../images/jshop_button.jpg)}
+.btn input,.btn a{overflow:hidden;float:left;display:block;margin-left:10px;cursor:pointer;border:0px none;text-align:center;padding:0px;font-size:14px;font-weight:bold;color:#fff;background:url(../img/jshop_button.jpg)}
 .btn a{text-decoration: none;}
 
 
@@ -7,7 +7,7 @@
 *******************************************************/
 .btn .buynow_btn{text-indent:-999px;width:126px;height:33px;background-position:left -227px;}
 .btn input.buynow_btn{!important;_text-indent:0px;line-height:999px;}
-.btn.hover input.buynow_btn{!important;_text-indent:0px;line-height:999px;background:url(../images/jshop_button.jpg) no-repeat -138px -227px}
+.btn.hover input.buynow_btn{!important;_text-indent:0px;line-height:999px;background:url(../img/jshop_button.jpg) no-repeat -138px -227px}
 .btn a.buynow_btn{line-height:33px;}
 .btn.hover a.buynow_btn{background-position:-138px -227px;}
  a.btn_payment { background: none repeat scroll 0 0 #EA5504; color: #FFFFFF; cursor: pointer; font-weight: bold; height: 25px; padding-left: 5px; padding-right: 5px;}
@@ -17,7 +17,7 @@
 *******************************************************/
 .btn .addtocart_btn{text-indent:-999px;width:133px;height:35px;background-position:left -274px;}
 .btn input.addtocart_btn{!important;_text-indent:0px;line-height:999px;}
-.btn.hover input.addtocart_btn{!important;_text-indent:0px;line-height:99999px;background:url(../images/jshop_button.jpg) no-repeat -138px -274px;}
+.btn.hover input.addtocart_btn{!important;_text-indent:0px;line-height:99999px;background:url(../img/jshop_button.jpg) no-repeat -138px -274px;}
 .btn a.addtocart_btn{line-height:35px;}
 .btn.hover a.addtocart_btn{background-position:-138px -274px;}
 
