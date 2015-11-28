@@ -1,0 +1,34 @@
+package com.mall.controller;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.mall.service.HomeService;
+
+@Controller
+public class HomeController
+{
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+	private HomeService homeService;
+	
+	@RequestMapping("/home/goHomePage")
+	/**
+	 * 去主页
+	 * @return
+	 */
+	public ModelAndView goHomePage()
+	{
+		LOG.info("去主页!!!!!");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("Test");
+		return modelAndView;
+	}
+}

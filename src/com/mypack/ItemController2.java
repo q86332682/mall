@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ItemController2
 {
-	@Autowired
-	private StudentMapper studentMapper;
+	//@Autowired
+	//private StudentMapper studentMapper;
 	
 	@RequestMapping("/queryItem2")
 	public ModelAndView queryItem2(HttpServletRequest arg0,
@@ -32,8 +32,8 @@ public class ItemController2
 //		modelAndView.setViewName("Test");
 		
 		ModelAndView modelAndView = new ModelAndView();
-		Student stu = studentMapper.findStuBySno("sn1");
-		modelAndView.addObject("stu", stu);
+		//Student stu = studentMapper.findStuBySno("sn1");
+		//modelAndView.addObject("stu", stu);
 		modelAndView.setViewName("Test");
 		return modelAndView;
 	}
