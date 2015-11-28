@@ -1,7 +1,7 @@
-package com.mall.dao;
+package com.mall.generator.dao;
 
-import com.mall.model.Hotkeyword;
-import com.mall.model.HotkeywordExample;
+import com.mall.generator.model.Hotkeyword;
+import com.mall.generator.model.HotkeywordExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

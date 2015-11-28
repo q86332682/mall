@@ -1,16 +1,16 @@
-package com.mall.model;
+package com.mall.generator.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotkeywordExample {
+public class NavigateExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public HotkeywordExample() {
+    public NavigateExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -301,6 +301,126 @@ public class HotkeywordExample {
 
         public Criteria andUrlNotBetween(String value1, String value2) {
             addCriterion("url not between", value1, value2, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidIsNull() {
+            addCriterion("parentId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidIsNotNull() {
+            addCriterion("parentId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidEqualTo(Byte value) {
+            addCriterion("parentId =", value, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidNotEqualTo(Byte value) {
+            addCriterion("parentId <>", value, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidGreaterThan(Byte value) {
+            addCriterion("parentId >", value, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidGreaterThanOrEqualTo(Byte value) {
+            addCriterion("parentId >=", value, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidLessThan(Byte value) {
+            addCriterion("parentId <", value, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidLessThanOrEqualTo(Byte value) {
+            addCriterion("parentId <=", value, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidIn(List<Byte> values) {
+            addCriterion("parentId in", values, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidNotIn(List<Byte> values) {
+            addCriterion("parentId not in", values, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidBetween(Byte value1, Byte value2) {
+            addCriterion("parentId between", value1, value2, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentidNotBetween(Byte value1, Byte value2) {
+            addCriterion("parentId not between", value1, value2, "parentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIsNull() {
+            addCriterion("sort is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIsNotNull() {
+            addCriterion("sort is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortEqualTo(Byte value) {
+            addCriterion("sort =", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotEqualTo(Byte value) {
+            addCriterion("sort <>", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThan(Byte value) {
+            addCriterion("sort >", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThanOrEqualTo(Byte value) {
+            addCriterion("sort >=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThan(Byte value) {
+            addCriterion("sort <", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThanOrEqualTo(Byte value) {
+            addCriterion("sort <=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIn(List<Byte> values) {
+            addCriterion("sort in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotIn(List<Byte> values) {
+            addCriterion("sort not in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortBetween(Byte value1, Byte value2) {
+            addCriterion("sort between", value1, value2, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotBetween(Byte value1, Byte value2) {
+            addCriterion("sort not between", value1, value2, "sort");
             return (Criteria) this;
         }
     }

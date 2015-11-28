@@ -1,6 +1,308 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mall.dao.GoodsMapper">
+<mapper namespace="com.mall.generator.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.mall.generator.model.Goods">
+    <id column="id" jdbcType="TINYINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="categoryId" jdbcType="TINYINT" property="categoryid" />
+    <result column="marketPrice" jdbcType="REAL" property="marketprice" />
+    <result column="sellPrice" jdbcType="REAL" property="sellprice" />
+    <result column="isSell" jdbcType="TINYINT" property="issell" />
+    <result column="isHotSell" jdbcType="TINYINT" property="ishotsell" />
+    <result column="isRecommend" jdbcType="TINYINT" property="isrecommend" />
+    <result column="priority" jdbcType="TINYINT" property="priority" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, img, categoryId, marketPrice, sellPrice, isSell, isHotSell, isRecommend, 
+    priority, createtime
+  </sql>
+  <select id="selectByExample" parameterType="com.mall.generator.model.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Byte" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
+    delete from goods
+    where id = #{id,jdbcType=TINYINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mall.generator.model.GoodsExample">
+    delete from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mall.generator.model.Goods">
+    insert into goods (id, name, img, 
+      categoryId, marketPrice, sellPrice, 
+      isSell, isHotSell, isRecommend, 
+      priority, createtime)
+    values (#{id,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{categoryid,jdbcType=TINYINT}, #{marketprice,jdbcType=REAL}, #{sellprice,jdbcType=REAL}, 
+      #{issell,jdbcType=TINYINT}, #{ishotsell,jdbcType=TINYINT}, #{isrecommend,jdbcType=TINYINT}, 
+      #{priority,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mall.generator.model.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="categoryid != null">
+        categoryId,
+      </if>
+      <if test="marketprice != null">
+        marketPrice,
+      </if>
+      <if test="sellprice != null">
+        sellPrice,
+      </if>
+      <if test="issell != null">
+        isSell,
+      </if>
+      <if test="ishotsell != null">
+        isHotSell,
+      </if>
+      <if test="isrecommend != null">
+        isRecommend,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null">
+        #{categoryid,jdbcType=TINYINT},
+      </if>
+      <if test="marketprice != null">
+        #{marketprice,jdbcType=REAL},
+      </if>
+      <if test="sellprice != null">
+        #{sellprice,jdbcType=REAL},
+      </if>
+      <if test="issell != null">
+        #{issell,jdbcType=TINYINT},
+      </if>
+      <if test="ishotsell != null">
+        #{ishotsell,jdbcType=TINYINT},
+      </if>
+      <if test="isrecommend != null">
+        #{isrecommend,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mall.generator.model.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=TINYINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryid != null">
+        categoryId = #{record.categoryid,jdbcType=TINYINT},
+      </if>
+      <if test="record.marketprice != null">
+        marketPrice = #{record.marketprice,jdbcType=REAL},
+      </if>
+      <if test="record.sellprice != null">
+        sellPrice = #{record.sellprice,jdbcType=REAL},
+      </if>
+      <if test="record.issell != null">
+        isSell = #{record.issell,jdbcType=TINYINT},
+      </if>
+      <if test="record.ishotsell != null">
+        isHotSell = #{record.ishotsell,jdbcType=TINYINT},
+      </if>
+      <if test="record.isrecommend != null">
+        isRecommend = #{record.isrecommend,jdbcType=TINYINT},
+      </if>
+      <if test="record.priority != null">
+        priority = #{record.priority,jdbcType=TINYINT},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods
+    set id = #{record.id,jdbcType=TINYINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      img = #{record.img,jdbcType=VARCHAR},
+      categoryId = #{record.categoryid,jdbcType=TINYINT},
+      marketPrice = #{record.marketprice,jdbcType=REAL},
+      sellPrice = #{record.sellprice,jdbcType=REAL},
+      isSell = #{record.issell,jdbcType=TINYINT},
+      isHotSell = #{record.ishotsell,jdbcType=TINYINT},
+      isRecommend = #{record.isrecommend,jdbcType=TINYINT},
+      priority = #{record.priority,jdbcType=TINYINT},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mall.generator.model.Goods">
+    update goods
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null">
+        categoryId = #{categoryid,jdbcType=TINYINT},
+      </if>
+      <if test="marketprice != null">
+        marketPrice = #{marketprice,jdbcType=REAL},
+      </if>
+      <if test="sellprice != null">
+        sellPrice = #{sellprice,jdbcType=REAL},
+      </if>
+      <if test="issell != null">
+        isSell = #{issell,jdbcType=TINYINT},
+      </if>
+      <if test="ishotsell != null">
+        isHotSell = #{ishotsell,jdbcType=TINYINT},
+      </if>
+      <if test="isrecommend != null">
+        isRecommend = #{isrecommend,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mall.generator.model.Goods">
+    update goods
+    set name = #{name,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      categoryId = #{categoryid,jdbcType=TINYINT},
+      marketPrice = #{marketprice,jdbcType=REAL},
+      sellPrice = #{sellprice,jdbcType=REAL},
+      isSell = #{issell,jdbcType=TINYINT},
+      isHotSell = #{ishotsell,jdbcType=TINYINT},
+      isRecommend = #{isrecommend,jdbcType=TINYINT},
+      priority = #{priority,jdbcType=TINYINT},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=TINYINT}
+  </update>
   <resultMap id="BaseResultMap" type="com.mall.model.Goods">
     <id column="id" jdbcType="TINYINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />

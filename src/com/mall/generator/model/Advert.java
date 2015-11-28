@@ -1,4 +1,4 @@
-package com.mall.model;
+package com.mall.generator.model;
 
 public class Advert {
     private Byte id;
@@ -8,6 +8,8 @@ public class Advert {
     private String img;
 
     private String pos;
+
+    private Byte sort;
 
     public Byte getId() {
         return id;
@@ -39,5 +41,13 @@ public class Advert {
 
     public void setPos(String pos) {
         this.pos = pos == null ? null : pos.trim();
+    }
+
+    public Byte getSort() {
+        return sort;
+    }
+
+    public void setSort(Byte sort) {
+        this.sort = sort;
     }
 }

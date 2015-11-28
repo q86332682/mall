@@ -1,7 +1,7 @@
-package com.mall.dao;
+package com.mall.generator.dao;
 
-import com.mall.model.Advert;
-import com.mall.model.AdvertExample;
+import com.mall.generator.model.Advert;
+import com.mall.generator.model.AdvertExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

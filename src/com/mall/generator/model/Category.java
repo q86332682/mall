@@ -1,4 +1,4 @@
-package com.mall.model;
+package com.mall.generator.model;
 
 public class Category {
     private Byte id;

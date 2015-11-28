@@ -1,7 +1,7 @@
-package com.mall.dao;
+package com.mall.generator.dao;
 
-import com.mall.model.Navigate;
-import com.mall.model.NavigateExample;
+import com.mall.generator.model.Navigate;
+import com.mall.generator.model.NavigateExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
