@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mall.dao.MyNavigateMapper">
+	<!-- 查询导航列表resultMap -->
+	<resultMap type="MyNavigate" id="queryNavigatesResultMap">
+		<id column="parentId" property="id"/>
+		<result column="parentName" property="name"/>
+		<result column="parentUrl" property="url"/>
+		<collection property="myChildNavigates" ofType="MyNavigate">
+			<id column="childId" property="id"/>
+			<result column="childName" property="name"/>
+			<result column="childUrl" property="url"/>
+		</collection>
+	</resultMap>
+
+	<!-- 查询导航列表 -->
+	<select id="queryNavigates" resultMap="queryNavigatesResultMap">
+		select parent.id parentId, parent.name parentName, parent.url parentUrl, child.id childId, child.name childName, child.url childUrl
+		from navigate parent
+		LEFT JOIN navigate child ON parent.id = child.parentId
+		where parent.parentId = 0
+		ORDER BY parent.sort ASC, child.sort ASC
+	</select>
 </mapper>

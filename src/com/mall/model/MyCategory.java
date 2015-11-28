@@ -13,7 +13,6 @@ import com.mall.generator.model.Goods;
 public class MyCategory extends Category
 {
 	private List<MyCategory> MyChildCategory;		//子级分类
-	private List<Goods> categoryGoods;				//分类下的商品
 
 	public List<MyCategory> getMyChildCategory()
 	{
@@ -23,15 +22,5 @@ public class MyCategory extends Category
 	public void setMyChildCategory(List<MyCategory> myChildCategory)
 	{
 		MyChildCategory = myChildCategory;
-	}
-
-	public List<Goods> getCategoryGoods()
-	{
-		return categoryGoods;
-	}
-
-	public void setCategoryGoods(List<Goods> categoryGoods)
-	{
-		this.categoryGoods = categoryGoods;
 	}
 }

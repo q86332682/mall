@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mall.dao.MyGoodsMapper">
+	<!-- 查询热卖和广告下面商品查询 -->
+	<select id="queryHotSellAndAdvertDownGoods" resultType="Goods">
+		(select name, img, marketPrice, sellPrice from goods where isSell = 0 and isHotSell = 0
+		ORDER BY sort ASC
+		LIMIT 5)
+		UNION ALL
+		(select name, img, marketPrice, sellPrice from goods where isSell = 0 and isAdvertDown = 0
+		ORDER BY sort ASC
+		LIMIT 4)
+	</select>
+	
+	<!-- 查询首页推荐商品resultMap -->
+	<resultMap type="MyRecommendGoods" id="queryHomeRecommendGoodsResultMap">
+		<id column="cat2Id" property="categoryId"/>
+		<result column="cat2Name" property="categoryName"/>
+		<result column="cat2Img" property="categoryImg"/>
+		<collection property="childCategorys" ofType="MyCategory">
+			<id column="cat3Id" property="id"/>
+			<result column="cat3Name" property="name"/>
+		</collection>
+		<collection property="recommendGoods" ofType="Goods">
+			<id column="goodId" property="id"/>
+			<result column="goodName" property="name"/>
+			<result column="goodImg" property="img"/>
+			<result column="goodCategoryId" property="categoryid"/>
+			<result column="goodMarketPrice" property="marketprice"/>
+			<result column="goodSellPrice" property="sellprice"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 查询首页推荐商品 -->
+	<select id="queryHomeRecommendGoods" resultMap="queryHomeRecommendGoodsResultMap">
+		select g.id goodId, g.name goodName, g.img goodImg, g.categoryId goodCategoryId, g.marketPrice goodMarketPrice, 
+		g.sellPrice goodSellPrice, a.id cat3Id, a.`name` cat3Name, b.id cat2Id, b.`name` cat2Name, b.img cat2Img
+		from goods g, category a, category b, category c
+		where g.isSell = 0 and g.isRecommend = 0 and g.categoryId = a.id and a.parentId = b.id and b.parentId = c.id
+		ORDER BY c.sort ASC, b.sort ASC, g.sort ASC
+		LIMIT 20
+	</select>
 </mapper>

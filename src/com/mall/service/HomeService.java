@@ -7,6 +7,7 @@ import com.mall.generator.model.Goods;
 import com.mall.generator.model.Hotkeyword;
 import com.mall.model.MyCategory;
 import com.mall.model.MyNavigate;
+import com.mall.model.MyRecommendGoods;
 
 /**
  * 主页业务处理
@@ -25,5 +26,5 @@ public interface HomeService
 	
 	public List<Goods> getHotSellAndAdvertDownGoods();
 	
-	public void getRecommendGoods();
+	public List<MyRecommendGoods> getRecommendGoods();
 }

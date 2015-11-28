@@ -3,8 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- 对 com.mypack下的类批量设置别名 -->
+	<!-- 对 实体类批量设置别名 -->
  	<typeAliases>
- 		<package name="com.mypack"/>
+ 		<package name="com.mall.generator.model"/>
+ 		<package name="com.mall.model"/>
  	</typeAliases>
 </configuration>

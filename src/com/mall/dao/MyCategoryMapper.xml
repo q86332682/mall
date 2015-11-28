@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mall.dao.MyCategoryMapper">
+	<!-- 查询分类列表resultMap -->
+	<resultMap type="MyCategory" id="queryCategoryResultMap">
+		<id column="cat1Id" property="id"/>
+		<result column="cat1Name" property="name"/>
+		<collection property="MyChildCategory" ofType="MyCategory">
+			<id column="cat2Id" property="id"/>
+			<result column="cat2Name" property="name"/>
+			<collection property="MyChildCategory" ofType="MyCategory">
+				<id column="cat3Id" property="id"/>
+				<result column="cat3Name" property="name"/>
+			</collection>
+		</collection>
+	</resultMap>
+
+	<!-- 查询分类列表 -->
+	<select id="queryCategory" resultMap="queryCategoryResultMap">
+		SELECT cat1.id cat1Id, cat1.name cat1Name, cat2.id cat2Id, cat2.name cat2Name, cat3.id cat3Id, cat3.name cat3Name
+		FROM `category` cat1
+		LEFT JOIN `category` cat2 on cat1.id = cat2.parentId
+		LEFT JOIN `category` cat3 on cat2.id = cat3.parentId
+		WHERE cat1.`level` = 1 and cat2.`level` = 2 and cat3.`level` = 3
+		ORDER BY cat1.sort ASC, cat2.sort ASC, cat3.sort ASC
+	</select>
 </mapper>
