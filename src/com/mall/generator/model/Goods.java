@@ -19,9 +19,11 @@ public class Goods {
 
     private Byte ishotsell;
 
+    private Byte isadvertdown;
+
     private Byte isrecommend;
 
-    private Byte priority;
+    private Byte sort;
 
     private Date createtime;
 
@@ -89,6 +91,14 @@ public class Goods {
         this.ishotsell = ishotsell;
     }
 
+    public Byte getIsadvertdown() {
+        return isadvertdown;
+    }
+
+    public void setIsadvertdown(Byte isadvertdown) {
+        this.isadvertdown = isadvertdown;
+    }
+
     public Byte getIsrecommend() {
         return isrecommend;
     }
@@ -97,12 +107,12 @@ public class Goods {
         this.isrecommend = isrecommend;
     }
 
-    public Byte getPriority() {
-        return priority;
+    public Byte getSort() {
+        return sort;
     }
 
-    public void setPriority(Byte priority) {
-        this.priority = priority;
+    public void setSort(Byte sort) {
+        this.sort = sort;
     }
 
     public Date getCreatetime() {

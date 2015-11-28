@@ -7,8 +7,6 @@ public class Category {
 
     private String img;
 
-    private String url;
-
     private Byte level;
 
     private Byte parentid;
@@ -37,14 +35,6 @@ public class Category {
 
     public void setImg(String img) {
         this.img = img == null ? null : img.trim();
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
     }
 
     public Byte getLevel() {

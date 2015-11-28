@@ -605,6 +605,66 @@ public class GoodsExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsadvertdownIsNull() {
+            addCriterion("isAdvertDown is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownIsNotNull() {
+            addCriterion("isAdvertDown is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownEqualTo(Byte value) {
+            addCriterion("isAdvertDown =", value, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownNotEqualTo(Byte value) {
+            addCriterion("isAdvertDown <>", value, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownGreaterThan(Byte value) {
+            addCriterion("isAdvertDown >", value, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownGreaterThanOrEqualTo(Byte value) {
+            addCriterion("isAdvertDown >=", value, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownLessThan(Byte value) {
+            addCriterion("isAdvertDown <", value, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownLessThanOrEqualTo(Byte value) {
+            addCriterion("isAdvertDown <=", value, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownIn(List<Byte> values) {
+            addCriterion("isAdvertDown in", values, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownNotIn(List<Byte> values) {
+            addCriterion("isAdvertDown not in", values, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownBetween(Byte value1, Byte value2) {
+            addCriterion("isAdvertDown between", value1, value2, "isadvertdown");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsadvertdownNotBetween(Byte value1, Byte value2) {
+            addCriterion("isAdvertDown not between", value1, value2, "isadvertdown");
+            return (Criteria) this;
+        }
+
         public Criteria andIsrecommendIsNull() {
             addCriterion("isRecommend is null");
             return (Criteria) this;
@@ -665,63 +725,63 @@ public class GoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andPriorityIsNull() {
-            addCriterion("priority is null");
+        public Criteria andSortIsNull() {
+            addCriterion("sort is null");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityIsNotNull() {
-            addCriterion("priority is not null");
+        public Criteria andSortIsNotNull() {
+            addCriterion("sort is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityEqualTo(Byte value) {
-            addCriterion("priority =", value, "priority");
+        public Criteria andSortEqualTo(Byte value) {
+            addCriterion("sort =", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityNotEqualTo(Byte value) {
-            addCriterion("priority <>", value, "priority");
+        public Criteria andSortNotEqualTo(Byte value) {
+            addCriterion("sort <>", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityGreaterThan(Byte value) {
-            addCriterion("priority >", value, "priority");
+        public Criteria andSortGreaterThan(Byte value) {
+            addCriterion("sort >", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityGreaterThanOrEqualTo(Byte value) {
-            addCriterion("priority >=", value, "priority");
+        public Criteria andSortGreaterThanOrEqualTo(Byte value) {
+            addCriterion("sort >=", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityLessThan(Byte value) {
-            addCriterion("priority <", value, "priority");
+        public Criteria andSortLessThan(Byte value) {
+            addCriterion("sort <", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityLessThanOrEqualTo(Byte value) {
-            addCriterion("priority <=", value, "priority");
+        public Criteria andSortLessThanOrEqualTo(Byte value) {
+            addCriterion("sort <=", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityIn(List<Byte> values) {
-            addCriterion("priority in", values, "priority");
+        public Criteria andSortIn(List<Byte> values) {
+            addCriterion("sort in", values, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityNotIn(List<Byte> values) {
-            addCriterion("priority not in", values, "priority");
+        public Criteria andSortNotIn(List<Byte> values) {
+            addCriterion("sort not in", values, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityBetween(Byte value1, Byte value2) {
-            addCriterion("priority between", value1, value2, "priority");
+        public Criteria andSortBetween(Byte value1, Byte value2) {
+            addCriterion("sort between", value1, value2, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andPriorityNotBetween(Byte value1, Byte value2) {
-            addCriterion("priority not between", value1, value2, "priority");
+        public Criteria andSortNotBetween(Byte value1, Byte value2) {
+            addCriterion("sort not between", value1, value2, "sort");
             return (Criteria) this;
         }
 
