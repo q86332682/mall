@@ -19,16 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript">
-		$.ajax({
-			type : 'post',
-			url : 'testJson.action',
-			success : function(data){
-				console.log(data);
-			}
-		});
-	</script>
   </head>
   
   <body>
