@@ -58,6 +58,13 @@ public class HomeController
 	
 	/*********************以下是测试代码*********************/
 	
+	@RequestMapping("/home/logTest")
+	public String logTest()
+	{
+		LOG.info("去Test2");
+		return "Test2";
+	}
+	
 	@RequestMapping("/home/goHomePage2")
 	public String goHomePage2(Model model)
 	{
