@@ -3,17 +3,27 @@ package com.mall.generator.model;
 import java.util.Date;
 
 public class Goods {
-    private Byte id;
+    private Integer id;
 
     private String name;
 
     private String img;
 
+    private Byte weight;
+
     private Byte categoryid;
+
+    private String brand;
 
     private Float marketprice;
 
     private Float sellprice;
+
+    private Byte score;
+
+    private String unit;
+
+    private String details;
 
     private Byte issell;
 
@@ -27,11 +37,11 @@ public class Goods {
 
     private Date createtime;
 
-    public Byte getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Byte id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,12 +61,28 @@ public class Goods {
         this.img = img == null ? null : img.trim();
     }
 
+    public Byte getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Byte weight) {
+        this.weight = weight;
+    }
+
     public Byte getCategoryid() {
         return categoryid;
     }
 
     public void setCategoryid(Byte categoryid) {
         this.categoryid = categoryid;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand == null ? null : brand.trim();
     }
 
     public Float getMarketprice() {
@@ -73,6 +99,30 @@ public class Goods {
 
     public void setSellprice(Float sellprice) {
         this.sellprice = sellprice;
+    }
+
+    public Byte getScore() {
+        return score;
+    }
+
+    public void setScore(Byte score) {
+        this.score = score;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details == null ? null : details.trim();
     }
 
     public Byte getIssell() {

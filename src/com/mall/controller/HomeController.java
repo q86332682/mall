@@ -20,6 +20,11 @@ import com.mall.model.MyRecommendGoods;
 import com.mall.service.HomeService;
 
 @Controller
+/**
+ * 主页处理控制器
+ * @author Administrator
+ *
+ */
 public class HomeController
 {
 	private final Logger LOG = LoggerFactory.getLogger(getClass());

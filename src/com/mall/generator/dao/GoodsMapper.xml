@@ -2,12 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mall.generator.dao.GoodsMapper" >
   <resultMap id="BaseResultMap" type="com.mall.generator.model.Goods" >
-    <id column="id" property="id" jdbcType="TINYINT" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="TINYINT" />
     <result column="categoryId" property="categoryid" jdbcType="TINYINT" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
     <result column="marketPrice" property="marketprice" jdbcType="REAL" />
     <result column="sellPrice" property="sellprice" jdbcType="REAL" />
+    <result column="score" property="score" jdbcType="TINYINT" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="details" property="details" jdbcType="VARCHAR" />
     <result column="isSell" property="issell" jdbcType="TINYINT" />
     <result column="isHotSell" property="ishotsell" jdbcType="TINYINT" />
     <result column="isAdvertDown" property="isadvertdown" jdbcType="TINYINT" />
@@ -74,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, img, categoryId, marketPrice, sellPrice, isSell, isHotSell, isAdvertDown, 
-    isRecommend, sort, createtime
+    id, name, img, weight, categoryId, brand, marketPrice, sellPrice, score, unit, details, 
+    isSell, isHotSell, isAdvertDown, isRecommend, sort, createtime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mall.generator.model.GoodsExample" >
     select
@@ -91,15 +96,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Byte" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from goods
-    where id = #{id,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from goods
-    where id = #{id,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.mall.generator.model.GoodsExample" >
     delete from goods
@@ -109,15 +114,17 @@
   </delete>
   <insert id="insert" parameterType="com.mall.generator.model.Goods" >
     insert into goods (id, name, img, 
-      categoryId, marketPrice, sellPrice, 
-      isSell, isHotSell, isAdvertDown, 
-      isRecommend, sort, createtime
-      )
-    values (#{id,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
-      #{categoryid,jdbcType=TINYINT}, #{marketprice,jdbcType=REAL}, #{sellprice,jdbcType=REAL}, 
-      #{issell,jdbcType=TINYINT}, #{ishotsell,jdbcType=TINYINT}, #{isadvertdown,jdbcType=TINYINT}, 
-      #{isrecommend,jdbcType=TINYINT}, #{sort,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}
-      )
+      weight, categoryId, brand, 
+      marketPrice, sellPrice, score, 
+      unit, details, isSell, 
+      isHotSell, isAdvertDown, isRecommend, 
+      sort, createtime)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=TINYINT}, #{categoryid,jdbcType=TINYINT}, #{brand,jdbcType=VARCHAR}, 
+      #{marketprice,jdbcType=REAL}, #{sellprice,jdbcType=REAL}, #{score,jdbcType=TINYINT}, 
+      #{unit,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, #{issell,jdbcType=TINYINT}, 
+      #{ishotsell,jdbcType=TINYINT}, #{isadvertdown,jdbcType=TINYINT}, #{isrecommend,jdbcType=TINYINT}, 
+      #{sort,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.mall.generator.model.Goods" >
     insert into goods
@@ -131,14 +138,29 @@
       <if test="img != null" >
         img,
       </if>
+      <if test="weight != null" >
+        weight,
+      </if>
       <if test="categoryid != null" >
         categoryId,
+      </if>
+      <if test="brand != null" >
+        brand,
       </if>
       <if test="marketprice != null" >
         marketPrice,
       </if>
       <if test="sellprice != null" >
         sellPrice,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="details != null" >
+        details,
       </if>
       <if test="issell != null" >
         isSell,
@@ -161,7 +183,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=TINYINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -169,14 +191,29 @@
       <if test="img != null" >
         #{img,jdbcType=VARCHAR},
       </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=TINYINT},
+      </if>
       <if test="categoryid != null" >
         #{categoryid,jdbcType=TINYINT},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
       </if>
       <if test="marketprice != null" >
         #{marketprice,jdbcType=REAL},
       </if>
       <if test="sellprice != null" >
         #{sellprice,jdbcType=REAL},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=TINYINT},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        #{details,jdbcType=VARCHAR},
       </if>
       <if test="issell != null" >
         #{issell,jdbcType=TINYINT},
@@ -208,7 +245,7 @@
     update goods
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=TINYINT},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
@@ -216,14 +253,29 @@
       <if test="record.img != null" >
         img = #{record.img,jdbcType=VARCHAR},
       </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=TINYINT},
+      </if>
       <if test="record.categoryid != null" >
         categoryId = #{record.categoryid,jdbcType=TINYINT},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=VARCHAR},
       </if>
       <if test="record.marketprice != null" >
         marketPrice = #{record.marketprice,jdbcType=REAL},
       </if>
       <if test="record.sellprice != null" >
         sellPrice = #{record.sellprice,jdbcType=REAL},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=TINYINT},
+      </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.details != null" >
+        details = #{record.details,jdbcType=VARCHAR},
       </if>
       <if test="record.issell != null" >
         isSell = #{record.issell,jdbcType=TINYINT},
@@ -250,12 +302,17 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update goods
-    set id = #{record.id,jdbcType=TINYINT},
+    set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       img = #{record.img,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=TINYINT},
       categoryId = #{record.categoryid,jdbcType=TINYINT},
+      brand = #{record.brand,jdbcType=VARCHAR},
       marketPrice = #{record.marketprice,jdbcType=REAL},
       sellPrice = #{record.sellprice,jdbcType=REAL},
+      score = #{record.score,jdbcType=TINYINT},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      details = #{record.details,jdbcType=VARCHAR},
       isSell = #{record.issell,jdbcType=TINYINT},
       isHotSell = #{record.ishotsell,jdbcType=TINYINT},
       isAdvertDown = #{record.isadvertdown,jdbcType=TINYINT},
@@ -275,14 +332,29 @@
       <if test="img != null" >
         img = #{img,jdbcType=VARCHAR},
       </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=TINYINT},
+      </if>
       <if test="categoryid != null" >
         categoryId = #{categoryid,jdbcType=TINYINT},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
       </if>
       <if test="marketprice != null" >
         marketPrice = #{marketprice,jdbcType=REAL},
       </if>
       <if test="sellprice != null" >
         sellPrice = #{sellprice,jdbcType=REAL},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=TINYINT},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        details = #{details,jdbcType=VARCHAR},
       </if>
       <if test="issell != null" >
         isSell = #{issell,jdbcType=TINYINT},
@@ -303,21 +375,26 @@
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mall.generator.model.Goods" >
     update goods
     set name = #{name,jdbcType=VARCHAR},
       img = #{img,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=TINYINT},
       categoryId = #{categoryid,jdbcType=TINYINT},
+      brand = #{brand,jdbcType=VARCHAR},
       marketPrice = #{marketprice,jdbcType=REAL},
       sellPrice = #{sellprice,jdbcType=REAL},
+      score = #{score,jdbcType=TINYINT},
+      unit = #{unit,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR},
       isSell = #{issell,jdbcType=TINYINT},
       isHotSell = #{ishotsell,jdbcType=TINYINT},
       isAdvertDown = #{isadvertdown,jdbcType=TINYINT},
       isRecommend = #{isrecommend,jdbcType=TINYINT},
       sort = #{sort,jdbcType=TINYINT},
       createtime = #{createtime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

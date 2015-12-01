@@ -45,5 +45,9 @@
 	<table tableName="goods"></table>
 	<table tableName="hotkeyword"></table>
 	<table tableName="navigate"></table>
+	<table tableName="comment"></table>
+	<table tableName="consultation"></table>
+	<table tableName="goodsDesc"></table>
+	<table tableName="user"></table>
   </context>
 </generatorConfiguration>

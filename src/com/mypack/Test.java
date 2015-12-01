@@ -1,5 +1,6 @@
 package com.mypack;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 
@@ -18,6 +19,11 @@ public class Test
 	 */
 	public static void main(String[] args) throws Exception
 	{
+		
+	}
+
+	private static void test1() throws IOException
+	{
 		String resource = "SqlMapConfig.xml";
 		InputStream in = Resources.getResourceAsStream(resource);
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
@@ -27,6 +33,5 @@ public class Test
 		Student stu = sqlSession.selectOne("test.findStuBySno", "sn1");
 		System.out.println(stu.getSNO() + "," + stu.getSNAME() + "," + stu.getSSEX());
 		sqlSession.close();
-		
 	}
 }
