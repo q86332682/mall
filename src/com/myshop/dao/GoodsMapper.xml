@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myshop.dao.GoodsMapper">
+	<!-- 查询商品按点击数排序 -->
+	<select id="queryGoodsClickcount" resultType="Goods">
+		SELECT name, clickcount from goods ORDER BY clickcount DESC LIMIT 5
+	</select>
+	
+	<!-- 查询商品按卖出数量排序 -->
+	<select id="queryGoodsSellcount" resultType="Goods">
+		SELECT name, clickcount from goods ORDER BY clickcount DESC LIMIT 4
+	</select>
+	
+	<!-- 按商品名称模糊查询 -->
+	<select id="queryGoodsByName" parameterType="String"  resultType="Goods">
+		select img, `name`, marketprice, sellprice from goods where `name` LIKE #{name}
+		LIMIT 0, 4
+	</select>
+	
+	<!-- 按分类名称查询商品 -->
+	<select id="queryGoodsByCategory" parameterType="String"  resultType="Goods">
+		select g.img, g.`name`, g.marketprice, g.sellprice from category cat
+		LEFT JOIN goods g on cat.id = g.categoryId
+		where cat.name = #{categoryName}
+		LIMIT 0, 4
+	</select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myshop.dao.OrderMapper">
+	<select id="queryOrderList" parameterType="String" resultType="Order">
+		select * from `order` where userId = #{userId} 
+		ORDER BY createtime LIMIT 0, 5
+	</select>
+	
+	<insert id="insertOrder" parameterType="Order">
+		insert into `order`(name, addr, mobile, totalprice, userId, createtime)
+		VALUES(#{order.name}, #{order.addr}, #{order.mobile}, 
+		#{order.totalprice}, #{order.userId}, SYSDATE())
+	</insert>
+</mapper>

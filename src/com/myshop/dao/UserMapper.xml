@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myshop.dao.UserMapper">
+	<!-- 插入用户 -->
+	<insert id="insertUser" parameterType="User">
+		insert into `user`(username, password, email, addr, mobile, createtime)
+		VALUES(#{user.username}, #{user.password},
+		#{user.email}, #{user.addr}, #{user.mobile}, SYSDATE())
+	</insert>
+	
+	<!-- 查询用户 -->
+	<select id="queryUser" parameterType="User" resultType="User">
+		select * from `user` where username = ${user.username} and password = ${user.password} limit 1
+	</select>
+</mapper>

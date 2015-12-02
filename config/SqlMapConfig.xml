@@ -5,7 +5,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<!-- 对 实体类批量设置别名 -->
  	<typeAliases>
- 		<package name="com.mall.generator.model"/>
- 		<package name="com.mall.model"/>
+ 		<package name="com.myshop.model"/>
  	</typeAliases>
 </configuration>

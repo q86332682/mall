@@ -25,7 +25,7 @@
 	</bean>
            
 	<!--扫描com.mypack包下的所有类交给spring管理-->
-	<context:component-scan base-package = "com.mypack"/>
+	<context:component-scan base-package = "com.myshop"/>
 	
 	
 	<!--配置数据源-->
@@ -61,7 +61,7 @@
 	
 	<!-- mapper扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.mall.dao,com.mall.generator.dao" />
+		<property name="basePackage" value="com.myshop.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 	
@@ -87,7 +87,7 @@
     <!-- aop事物 -->
     <aop:config>
     	<aop:pointcut id="allServiceMethods"  
-                  expression="execution(* com.mypack.*.*(..))"/> 
+                  expression="execution(* com.myshop.*.*(..))"/> 
     	<aop:advisor advice-ref="txAdvice" pointcut-ref="allServiceMethods" />
     </aop:config> 
 </beans>
