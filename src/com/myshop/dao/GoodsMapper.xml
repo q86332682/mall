@@ -3,12 +3,12 @@
 <mapper namespace="com.myshop.dao.GoodsMapper">
 	<!-- 查询商品按点击数排序 -->
 	<select id="queryGoodsClickcount" resultType="Goods">
-		SELECT name, clickcount from goods ORDER BY clickcount DESC LIMIT 5
+		SELECT name, img, clickcount from goods ORDER BY clickcount DESC LIMIT 5
 	</select>
 	
 	<!-- 查询商品按卖出数量排序 -->
 	<select id="queryGoodsSellcount" resultType="Goods">
-		SELECT name, clickcount from goods ORDER BY clickcount DESC LIMIT 4
+		SELECT name, img, clickcount from goods ORDER BY clickcount DESC LIMIT 4
 	</select>
 	
 	<!-- 按商品名称模糊查询 -->

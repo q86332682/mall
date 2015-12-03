@@ -54,7 +54,7 @@ public class HomeController
 		model.addAttribute("goodslist3", goodslist3);
 		model.addAttribute("categorylist", categorylist);
 		
-		return "Test";
+		return "home";
 	}
 	
 	@RequestMapping("/goRegisterPage")
