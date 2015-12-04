@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.myshop.model.Order;
 import com.myshop.model.Ordergoods;
+import com.myshop.model.PageModel;
 import com.myshop.model.User;
 
 /**
@@ -29,7 +30,7 @@ public interface UserService
 	 * 获得我的订单列表
 	 * @param userId 用户id
 	 */
-	public List<Order> getMyOrderList(String userId);
+	public PageModel<Order> getMyOrderList(PageModel<Order> pageModel);
 	
 	/**
 	 * 购买商品

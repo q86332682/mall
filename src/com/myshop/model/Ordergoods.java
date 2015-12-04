@@ -9,9 +9,12 @@ public class Ordergoods
 {
 	private Integer id;
 	private String name;
-	private float price;
+	private float marketprice;
+	private float sellprice;
 	private Integer num;
 	private Integer orderId;
+	private Integer goodsId;
+	
 	public Integer getId()
 	{
 		return id;
@@ -28,13 +31,21 @@ public class Ordergoods
 	{
 		this.name = name;
 	}
-	public float getPrice()
+	public float getMarketprice()
 	{
-		return price;
+		return marketprice;
 	}
-	public void setPrice(float price)
+	public void setMarketprice(float marketprice)
 	{
-		this.price = price;
+		this.marketprice = marketprice;
+	}
+	public float getSellprice()
+	{
+		return sellprice;
+	}
+	public void setSellprice(float sellprice)
+	{
+		this.sellprice = sellprice;
 	}
 	public Integer getNum()
 	{
@@ -51,5 +62,13 @@ public class Ordergoods
 	public void setOrderId(Integer orderId)
 	{
 		this.orderId = orderId;
+	}
+	public Integer getGoodsId()
+	{
+		return goodsId;
+	}
+	public void setGoodsId(Integer goodsId)
+	{
+		this.goodsId = goodsId;
 	}
 }

@@ -4,12 +4,21 @@
 	<!-- 插入用户 -->
 	<insert id="insertUser" parameterType="User">
 		insert into `user`(username, password, email, addr, mobile, createtime)
-		VALUES(#{user.username}, #{user.password},
-		#{user.email}, #{user.addr}, #{user.mobile}, SYSDATE())
+		VALUES(#{username}, #{password},
+		#{email}, #{addr}, #{mobile}, SYSDATE())
 	</insert>
 	
 	<!-- 查询用户 -->
 	<select id="queryUser" parameterType="User" resultType="User">
-		select * from `user` where username = ${user.username} and password = ${user.password} limit 1
+		select * from `user`
+		<where>
+			<if test="username != null">
+				and username = '${username}'
+			</if>
+			<if test="password != null">
+				and password = '${password}' 
+			</if>
+		</where>
+		limit 1
 	</select>
 </mapper>

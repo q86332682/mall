@@ -11,6 +11,8 @@ import com.myshop.dao.HotsearchMapper;
 import com.myshop.model.Category;
 import com.myshop.model.Goods;
 import com.myshop.model.Hotsearch;
+import com.myshop.model.Order;
+import com.myshop.model.PageModel;
 import com.myshop.service.GoodsService;
 
 @Service
@@ -43,6 +45,12 @@ public class GoodsServiceImpl implements GoodsService
 		List<Goods> goodsList = goodsMapper.queryGoodsByName(name);
 		hotsearchMapper.insertAndUpdateHotSearch(name);
 		return goodsList;
+	}
+	
+	@Override
+	public PageModel<Goods> getNewGoods(PageModel<Order> pageModel)
+	{
+		return goodsMapper.queryGoodsTime(pageModel);
 	}
 
 	@Override

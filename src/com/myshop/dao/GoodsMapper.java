@@ -3,9 +3,17 @@ package com.myshop.dao;
 import java.util.List;
 
 import com.myshop.model.Goods;
+import com.myshop.model.Order;
+import com.myshop.model.PageModel;
 
 public interface GoodsMapper
 {
+	/**
+	 * 查询商品按时间排序
+	 * @return
+	 */
+	public PageModel<Goods> queryGoodsTime(PageModel<Order> pageModel);
+	
 	/**
 	 * 查询商品按点击数排序
 	 * @return

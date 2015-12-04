@@ -255,7 +255,7 @@
 	margin-right: auto;
 	margin-left: auto;
 	margin-bottom: 120px;
-	background-image: url(images/dl_03.gif);
+	background-image: url(../img/dl_03.gif);
 	background-repeat: no-repeat;
 	padding-right: 34px;
 	padding-left: 108px;
@@ -269,7 +269,7 @@
 	margin-right: auto;
 	margin-left: auto;
 	margin-bottom: 30px;
-	background-image: url(images/zc_03.gif);
+	background-image: url(../img/zc_03.gif);
 	background-repeat: no-repeat;
 	background-color: #ffffe1;
 	background-position: top;
@@ -284,7 +284,7 @@
 	height: 415px;
 	width: 193px;
 	border: 1px solid #999999;
-	background-image: url(images/zh_03.gif);
+	background-image: url(../img/zh_03.gif);
 	background-repeat: no-repeat;
 	background-position: top;
 	margin: 5px;
@@ -292,7 +292,7 @@
 	background-color: #e7f3c3;
 }
 #left_list {
-	background-image: url(images/zh01_07.gif);
+	background-image: url(../img/zh01_07.gif);
 	background-repeat: no-repeat;
 	background-position: center;
 	float: left;

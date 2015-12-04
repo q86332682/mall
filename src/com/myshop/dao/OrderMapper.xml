@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myshop.dao.OrderMapper">
-	<select id="queryOrderList" parameterType="String" resultType="Order">
+	<select id="queryOrderList" parameterType="Integer" resultType="Order">
 		select * from `order` where userId = #{userId} 
 		ORDER BY createtime LIMIT 0, 5
+	</select>
+	
+	<!-- 查询订单分页resultMap -->
+	<resultMap type="PageModel" id="queryOrderPageResultMap">
+<!-- 		<id column="id" property="id"/> -->
+		<result column="pageNow" property="pageNow"/>
+		<result column="pageSize" property="pageSize"/>
+		<result column="totalcount" property="totalCount"/>
+	
+		<collection property="list" ofType="Order">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="addr" property="addr"/>
+			<result column="mobile" property="mobile"/>
+			<result column="totalprice" property="totalprice"/>
+			<result column="payWay" property="payWay"/>
+			<result column="state" property="state"/>
+			<result column="userId" property="userId"/>
+			<result column="createtime" property="createtime"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 查询订单分页 -->
+	<select id="queryOrderPage" parameterType="PageModel" resultMap="queryOrderPageResultMap">
+		select #{pageNow} pageNow, #{pageSize} pageSize, count(*) totalcount, o.* from `order` o where o.userId = #{pageQuery.userId}
+		ORDER BY createtime LIMIT #{startIndex}, #{pageSize}
 	</select>
 	
 	<insert id="insertOrder" parameterType="Order">

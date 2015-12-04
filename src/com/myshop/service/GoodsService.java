@@ -5,6 +5,8 @@ import java.util.List;
 import com.myshop.model.Category;
 import com.myshop.model.Goods;
 import com.myshop.model.Hotsearch;
+import com.myshop.model.Order;
+import com.myshop.model.PageModel;
 
 /**
  * 商品业务操作接口
@@ -24,6 +26,12 @@ public interface GoodsService
 	 * @param name 商品
 	 */
 	public List<Goods> searchGoodsList(String name);
+	
+	/**
+	 * 获得最新上架商品
+	 * @return
+	 */
+	public PageModel<Goods> getNewGoods(PageModel<Order> pageModel);
 	
 	/**
 	 * 获得人气排行榜

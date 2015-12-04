@@ -17,9 +17,9 @@
 <%@include file="head.jsp"%>
 <div id="box">
 <div id="left">
-<div id="left_s01"><a href = ''><img
+<div id="left_s01"><a href = '${pageContext.request.contextPath}/home/goLoginPage.action'><img
 	src="${pageContext.request.contextPath}/img/index_23.gif" class="imgx5" /></a>
-	<a href = ''><img
+	<a href = '${pageContext.request.contextPath}/home/goRegisterPage.action'><img
 	src="${pageContext.request.contextPath}/img/index_26.gif" class="imgx5" /></a><img
 	src="${pageContext.request.contextPath}/img/index_27.gif" /></div>
 <div id="left_s02"><img

@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myshop.dao.GoodsMapper">
+	<!-- 查询订单分页resultMap -->
+	<resultMap type="PageModel" id="queryGoodsTimeResultMap">
+		<result column="pageNow" property="pageNow"/>
+		<result column="pageSize" property="pageSize"/>
+		<result column="totalcount" property="totalCount"/>
+	
+		<collection property="list" ofType="Goods">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="img" property="img"/>
+			<result column="marketprice" property="marketprice"/>
+			<result column="sellprice" property="sellprice"/>
+		</collection>
+	</resultMap>
+
+	<!-- 查询商品按时间排序 -->
+	<select id="queryGoodsTime" resultMap="queryGoodsTimeResultMap">
+		SELECT #{pageNow} pageNow, #{pageSize} pageSize, count(*) totalcount, 
+		g.name, g.img, g.marketprice, g.sellprice from goods g ORDER BY g.createtime DESC 
+		LIMIT #{startIndex}, #{pageSize}
+	</select>
+
 	<!-- 查询商品按点击数排序 -->
 	<select id="queryGoodsClickcount" resultType="Goods">
 		SELECT name, img, clickcount from goods ORDER BY clickcount DESC LIMIT 5
@@ -8,7 +30,7 @@
 	
 	<!-- 查询商品按卖出数量排序 -->
 	<select id="queryGoodsSellcount" resultType="Goods">
-		SELECT name, img, clickcount from goods ORDER BY clickcount DESC LIMIT 4
+		SELECT name, img, clickcount from goods ORDER BY sellcount DESC LIMIT 4
 	</select>
 	
 	<!-- 按商品名称模糊查询 -->
