@@ -44,6 +44,6 @@ public class UserCenterController
 	@RequestMapping("/goOrderPage")
 	public String goOrderPage()
 	{
-		return "";
+		return "order_add";
 	}
 }

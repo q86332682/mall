@@ -15,6 +15,20 @@ public class Ordergoods
 	private Integer orderId;
 	private Integer goodsId;
 	
+	public Ordergoods()
+	{
+		
+	}
+	
+	public Ordergoods(Goods goods)
+	{
+		this.name = goods.getName();
+		this.marketprice = goods.getMarketprice();
+		this.sellprice = goods.getSellprice();
+		this.num = 1;
+		this.goodsId = goods.getId();
+	}
+	
 	public Integer getId()
 	{
 		return id;

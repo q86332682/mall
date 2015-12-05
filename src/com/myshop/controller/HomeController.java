@@ -34,10 +34,12 @@ import com.myshop.service.UserService;
 public class HomeController
 {
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final String SEARCH_GOODS = "搜索商品";
 	private final String NEW_GOODS = "新品上市";
 	private final String SELL_HOT_GOODS = "热销商品";
 	private final String RECOMMEND_GOODS = "推荐商品";
 	private final String POP_GOODS = "人气商品";
+	private final String CATEGORY_GOODS = "分类商品";
 	
 	@Autowired
 	private GoodsService goodsService;
@@ -46,11 +48,12 @@ public class HomeController
 	private UserService userService;
 	
 	@RequestMapping("/searchGoods")
-	public String searchGoods(String goodsName, Model model)
+	public String searchGoods(Model model, Goods goods, PageModel<Goods> pageModel)
 	{
-		LOG.info("搜索商品");		
-		List<Goods> goodslist = goodsService.searchGoodsList(goodsName);
-		model.addAttribute("goodslist", goodslist);
+		LOG.info("搜索商品");
+		pageModel.setPageQuery(goods);
+		PageModel<Goods> resultPageModel = goodsService.searchGoodsList(pageModel);
+		model.addAttribute("resultPageModel", resultPageModel);
 		return "Test";
 	}
 	
@@ -106,21 +109,53 @@ public class HomeController
 	}
 	
 	@RequestMapping("/goCartPage")
-	public String goCartPage(HttpSession session)
+	public String goCartPage(HttpSession session, Goods goods)
 	{
 		List<Ordergoods> list = (List<Ordergoods>) session.getAttribute("catrlist");
+		if(list == null)
+			list = new ArrayList<Ordergoods>();
+		if(goods.getId() != null)
+		{
+			boolean flag = true;
+			
+			for(Ordergoods g : list)
+			{
+				if(g.getGoodsId().equals(goods.getId()))
+				{
+					g.setNum(g.getNum() + 1);
+					flag = false;
+					break;
+				}
+			}
+			
+			if(flag)
+			{
+				Ordergoods ordergoods = new Ordergoods(goods);
+				list.add(0, ordergoods);
+			}
+		}
+		
+		if(list.size() > 4)
+			list.remove(list.size() - 1);
+		
 		float cartTotalprice = 0;
 		if(list != null)
 			for(Ordergoods g : list)
-				cartTotalprice += g.getSellprice();
+				cartTotalprice += g.getSellprice() * g.getNum();
 		session.setAttribute("cartTotalprice", cartTotalprice);
-				
+		session.setAttribute("catrlist", list.size() > 0 && list.get(0) != null ? list : null);		
 		return "cart_list";
 	}
 	
 	@RequestMapping("/goMyOrderPage")
-	public String goMyOrderPage(Model model, Order order, PageModel<Order> pageModel)
+	public String goMyOrderPage(Model model, HttpSession session, Order order, PageModel<Order> pageModel)
 	{
+		if(order.getUserId() == null)
+		{
+			User user = (User) session.getAttribute("user");
+			order.setUserId(user.getId());
+		}
+		
 		pageModel.setPageQuery(order);
 		PageModel<Order> resultPageModel = userService.getMyOrderList(pageModel);
 		model.addAttribute("resultPageModel", resultPageModel);
@@ -128,7 +163,7 @@ public class HomeController
 	}
 	
 	@RequestMapping("/goGoodsListPage")
-	public String goGoodsListPage(Model model, String menuName, PageModel<Order> pageModel)
+	public String goGoodsListPage(Model model, String menuName, Goods search, PageModel<Goods> pageModel)
 	{
 		List<Goods> goodslist1 = goodsService.getGoodsByPopRank();
 		List<Goods> goodslist2 = goodsService.getGoodsByRecommend();
@@ -142,6 +177,12 @@ public class HomeController
 		String menuImg = null;
 		PageModel<Goods> resultPageModel = null;
 		
+		if(SEARCH_GOODS.equals(menuName))
+		{
+			menuImg = "04.gif";
+			pageModel.setPageQuery(search);
+			resultPageModel = goodsService.searchGoodsList(pageModel);
+		}
 		if(NEW_GOODS.equals(menuName))
 		{
 			menuImg = "01.gif";
@@ -150,24 +191,46 @@ public class HomeController
 		else if(SELL_HOT_GOODS.equals(menuName))
 		{
 			menuImg = "03.gif";
-			resultPageModel = goodsService.getNewGoods(pageModel);
+			resultPageModel = goodsService.getGoodsBySellhot(pageModel);
 		}
 		else if(RECOMMEND_GOODS.equals(menuName))
 		{
 			menuImg = "06.gif";
-			resultPageModel = goodsService.getNewGoods(pageModel);
+			resultPageModel = goodsService.getGoodsByRecommend(pageModel);
 		}
 		else if(POP_GOODS.equals(menuName))
 		{
 			menuImg = "07.gif";
-			resultPageModel = goodsService.getNewGoods(pageModel);
+			resultPageModel = goodsService.getGoodsByPopRank(pageModel);
+		}
+		else if(CATEGORY_GOODS.equals(menuName))
+		{
+			menuImg = "02.gif";
+			pageModel.setPageQuery(search);
+			resultPageModel = goodsService.getGoodsByCategory(pageModel);
 		}
 
 		model.addAttribute("menuImg", menuImg);
 		model.addAttribute("menuName", menuName);
-		model.addAttribute("resultPageModel", resultPageModel);
+		model.addAttribute("search", search);
+		model.addAttribute("resultPageModel", resultPageModel.getList().size() > 0 && resultPageModel.getList().get(0) != null ? 
+				resultPageModel : null);
 		LOG.info("goNewGoodsPage");
 		return "goods_list";
+	}
+	
+	@RequestMapping("/goGoodsDetailPage")
+	public String goGoodsDetailPage(Model model, Integer id)
+	{
+		List<Goods> goodslist1 = goodsService.getGoodsByPopRank();
+		List<Goods> goodslist2 = goodsService.getGoodsByRecommend();
+		List<Goods> goodslist3 = goodsService.getGoodsBySellhot();
+		model.addAttribute("goodslist1", goodslist1);
+		model.addAttribute("goodslist2", goodslist2);
+		model.addAttribute("goodslist3", goodslist3);
+		
+		model.addAttribute("goods", goodsService.getGoodsById(id));
+		return "product_select";
 	}
 	
 	@RequestMapping("/testPageModel")

@@ -40,17 +40,21 @@ public class GoodsServiceImpl implements GoodsService
 	}
 
 	@Override
-	public List<Goods> searchGoodsList(String name)
+	public PageModel<Goods> searchGoodsList(PageModel<Goods> pageModel)
 	{
-		List<Goods> goodsList = goodsMapper.queryGoodsByName(name);
-		hotsearchMapper.insertAndUpdateHotSearch(name);
-		return goodsList;
+		List<Goods> goodsList = goodsMapper.queryGoodsByName(pageModel);
+		hotsearchMapper.insertAndUpdateHotSearch(pageModel.getPageQuery());
+		pageModel.setTotalCount(goodsMapper.querySearchGoodsCount(pageModel.getPageQuery()));
+		pageModel.setList(goodsList);
+		return pageModel;
 	}
 	
 	@Override
-	public PageModel<Goods> getNewGoods(PageModel<Order> pageModel)
+	public PageModel<Goods> getNewGoods(PageModel<Goods> pageModel)
 	{
-		return goodsMapper.queryGoodsTime(pageModel);
+		pageModel.setTotalCount(goodsMapper.queryGoodsCount());
+		pageModel.setList(goodsMapper.queryGoodsTime(pageModel));
+		return pageModel;
 	}
 
 	@Override
@@ -58,11 +62,27 @@ public class GoodsServiceImpl implements GoodsService
 	{
 		return goodsMapper.queryGoodsClickcount();
 	}
+	
+	@Override
+	public PageModel<Goods> getGoodsByPopRank(PageModel<Goods> pageModel)
+	{
+		pageModel.setTotalCount(goodsMapper.queryGoodsCount());
+		pageModel.setList(goodsMapper.queryGoodsClickcountPage(pageModel));
+		return pageModel;
+	}
 
 	@Override
 	public List<Goods> getGoodsByRecommend()
 	{
 		return goodsMapper.queryGoodsClickcount();
+	}
+	
+	@Override
+	public PageModel<Goods> getGoodsByRecommend(PageModel<Goods> pageModel)
+	{
+		pageModel.setTotalCount(goodsMapper.queryGoodsCount());
+		pageModel.setList(goodsMapper.queryGoodsClickcountPage(pageModel));
+		return pageModel;
 	}
 
 	@Override
@@ -70,16 +90,37 @@ public class GoodsServiceImpl implements GoodsService
 	{
 		return goodsMapper.queryGoodsSellcount();
 	}
+	
+	@Override
+	public PageModel<Goods> getGoodsBySellhot(PageModel<Goods> pageModel)
+	{
+		pageModel.setTotalCount(goodsMapper.queryGoodsCount());
+		pageModel.setList(goodsMapper.queryGoodsSellcountPage(pageModel));
+		return pageModel;
+	}
 
 	@Override
-	public List<Goods> getGoodsByCategory(String categoryName)
+	public PageModel<Goods> getGoodsByCategory(PageModel<Goods> pageModel)
 	{
-		return goodsMapper.queryGoodsByCategory(categoryName);
+		pageModel.setTotalCount(goodsMapper.queryGoodsCategoryCount(pageModel.getPageQuery()));
+		pageModel.setList(goodsMapper.queryGoodsByCategory(pageModel));
+		return pageModel;
 	}
 
 	@Override
 	public List<Category> getCategorylist()
 	{
 		return categoryMapper.queryCategoryList();
+	}
+	
+	/**
+	 * 通过id获得商品
+	 * @param id
+	 * @return
+	 */
+	public Goods getGoodsById(Integer id)
+	{
+		goodsMapper.updateClickCount(id);
+		return goodsMapper.queryGoodsById(id);
 	}
 }

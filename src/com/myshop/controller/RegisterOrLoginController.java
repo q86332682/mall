@@ -52,15 +52,15 @@ public class RegisterOrLoginController
 	public String login(User user, HttpServletRequest request, HttpSession session)
 	{
 		//加入测试购物车数据
-		List<Ordergoods> list = new ArrayList<Ordergoods>();
-		Ordergoods catrGoods1 = new Ordergoods();
-		catrGoods1.setName("Java 编程词典");
-		catrGoods1.setMarketprice(150);
-		catrGoods1.setSellprice(120);
-		catrGoods1.setNum(1);
-		catrGoods1.setGoodsId(1);
-		list.add(catrGoods1);
-		session.setAttribute("catrlist", list);
+//		List<Ordergoods> list = new ArrayList<Ordergoods>();
+//		Ordergoods catrGoods1 = new Ordergoods();
+//		catrGoods1.setName("Java 编程词典");
+//		catrGoods1.setMarketprice(150);
+//		catrGoods1.setSellprice(120);
+//		catrGoods1.setNum(1);
+//		catrGoods1.setGoodsId(1);
+//		list.add(catrGoods1);
+//		session.setAttribute("catrlist", list);
 		
 		
 		User loginUser = userService.login(user);

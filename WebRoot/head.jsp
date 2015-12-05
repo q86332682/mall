@@ -16,6 +16,7 @@ td {
 		type : 'get',
 		url : '${pageContext.request.contextPath}/home/loadHotSearchlist.action',
 		success : function(data){
+			console.log(data);
 			var htmltext = "<b>热搜商品：</b>";
 			for(var i = 0;i < data.length;i++)
 			{
@@ -40,9 +41,11 @@ td {
 
 <div id="logo">
 
-<form action="">
+<form action="${pageContext.request.contextPath}/home/goGoodsListPage.action" method="post">
 <div id="sou">
 	<input type="text" name="name"><br>
+	<input type="hidden" name="menuName" value="搜索商品"><br>
+	<input type="hidden" name="pageNow" value="1"><br>
 	<div style="margin-top: 5px;" id="hotSearchlist">
 <%--		<b>热搜商品：</b>--%>
 <%--		<c:forEach items="${hotSearchlist}" var="hotSearch">--%>

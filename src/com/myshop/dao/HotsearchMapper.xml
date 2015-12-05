@@ -3,11 +3,11 @@
 <mapper namespace="com.myshop.dao.HotsearchMapper">
 	<!-- 查询热销商品搜索列表 -->
 	<select id="queryHotsearchList" resultType="Hotsearch">
-		select name, count from hotsearch ORDER BY count DESC LIMIT 5
+		select name, count from hotsearch where count > 1 ORDER BY count DESC LIMIT 5
 	</select>
 	
 	<!-- 插入或更新热销商品搜索 -->
-	<insert id="insertAndUpdateHotSearch" parameterType="String">
+	<insert id="insertAndUpdateHotSearch" parameterType="Goods">
 		call insertAndUpdateHotSearch(#{name})
 	</insert>
 </mapper>

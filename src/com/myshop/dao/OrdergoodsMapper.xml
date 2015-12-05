@@ -4,7 +4,7 @@
 	<insert id="insertOrdergoods" parameterType="List">
 		insert into ordergoods(name, marketprice, sellprice, num, orderId, goodsId)
 		VALUES
-		<foreach collection="OrdergoodsList" item="item" index="index" separator=",">
+		<foreach collection="list" item="item" index="index" separator=",">
 			(#{item.name},#{item.marketprice},#{item.sellprice},#{item.num},#{item.orderId},#{item.goodsId})
 		</foreach>
 	</insert>

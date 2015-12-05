@@ -20,11 +20,18 @@ public interface OrderMapper
 	public List<Order> queryOrderList(Integer userId);
 	
 	/**
+	 * 查询订单数量
+	 * @param pageModel
+	 * @return
+	 */
+	public int queryOrderCount(PageModel<Order> pageModel);
+	
+	/**
 	 * 查询订单分页
 	 * @param pageModel 分页模型
 	 * @return
 	 */
-	public PageModel<Order> queryOrderPage(PageModel<Order> pageModel);
+	public List<Order> queryOrderPage(PageModel<Order> pageModel);
 	
 	/**
 	 * 插入订单

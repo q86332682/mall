@@ -25,13 +25,13 @@ public interface GoodsService
 	 * 搜索商品
 	 * @param name 商品
 	 */
-	public List<Goods> searchGoodsList(String name);
+	public PageModel<Goods> searchGoodsList(PageModel<Goods> pageModel);
 	
 	/**
 	 * 获得最新上架商品
 	 * @return
 	 */
-	public PageModel<Goods> getNewGoods(PageModel<Order> pageModel);
+	public PageModel<Goods> getNewGoods(PageModel<Goods> pageModel);
 	
 	/**
 	 * 获得人气排行榜
@@ -40,16 +40,34 @@ public interface GoodsService
 	public List<Goods> getGoodsByPopRank();
 	
 	/**
+	 * 获得人气排行榜带分页
+	 * @return
+	 */
+	public PageModel<Goods> getGoodsByPopRank(PageModel<Goods> pageModel);
+	
+	/**
 	 * 获得推荐商品
 	 * @return
 	 */
 	public List<Goods> getGoodsByRecommend();
 	
 	/**
+	 * 获得推荐商品带分页
+	 * @return
+	 */
+	public PageModel<Goods> getGoodsByRecommend(PageModel<Goods> pageModel);
+	
+	/**
 	 * 获得热销商品
 	 * @return
 	 */
 	public List<Goods> getGoodsBySellhot();
+	
+	/**
+	 * 获得热销商品带分页
+	 * @return
+	 */
+	public PageModel<Goods> getGoodsBySellhot(PageModel<Goods> pageModel);
 	
 	/**
 	 * 获得分类列表
@@ -62,5 +80,12 @@ public interface GoodsService
 	 * @param categoryName 分类名称
 	 * @return
 	 */
-	public List<Goods> getGoodsByCategory(String categoryName);
+	public PageModel<Goods> getGoodsByCategory(PageModel<Goods> pageModel);
+	
+	/**
+	 * 通过id获得商品
+	 * @param id
+	 * @return
+	 */
+	public Goods getGoodsById(Integer id);
 }

@@ -2,6 +2,7 @@ package com.myshop.dao;
 
 import java.util.List;
 
+import com.myshop.model.Goods;
 import com.myshop.model.Hotsearch;
 
 /**
@@ -21,5 +22,5 @@ public interface HotsearchMapper
 	 * 插入或更新热销商品搜索
 	 * @param name 搜索名
 	 */
-	public void insertAndUpdateHotSearch(String name);
+	public void insertAndUpdateHotSearch(Goods goods);
 }

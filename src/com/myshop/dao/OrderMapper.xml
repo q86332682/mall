@@ -8,7 +8,6 @@
 	
 	<!-- 查询订单分页resultMap -->
 	<resultMap type="PageModel" id="queryOrderPageResultMap">
-<!-- 		<id column="id" property="id"/> -->
 		<result column="pageNow" property="pageNow"/>
 		<result column="pageSize" property="pageSize"/>
 		<result column="totalcount" property="totalCount"/>
@@ -26,15 +25,20 @@
 		</collection>
 	</resultMap>
 	
+	<!-- 查询订单数量 -->
+	<select id="queryOrderCount" parameterType="PageModel" resultType="int">
+		select count(*) from `order` o where o.userId = #{pageQuery.userId}
+	</select>
+	
 	<!-- 查询订单分页 -->
-	<select id="queryOrderPage" parameterType="PageModel" resultMap="queryOrderPageResultMap">
-		select #{pageNow} pageNow, #{pageSize} pageSize, count(*) totalcount, o.* from `order` o where o.userId = #{pageQuery.userId}
+	<select id="queryOrderPage" parameterType="PageModel" resultType="Order">
+		select o.* from `order` o where o.userId = #{pageQuery.userId}
 		ORDER BY createtime LIMIT #{startIndex}, #{pageSize}
 	</select>
 	
-	<insert id="insertOrder" parameterType="Order">
+	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
 		insert into `order`(name, addr, mobile, totalprice, userId, createtime)
-		VALUES(#{order.name}, #{order.addr}, #{order.mobile}, 
-		#{order.totalprice}, #{order.userId}, SYSDATE())
+		VALUES(#{name}, #{addr}, #{mobile}, 
+		#{totalprice}, #{userId}, SYSDATE())
 	</insert>
 </mapper>
