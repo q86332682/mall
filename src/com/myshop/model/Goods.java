@@ -1,6 +1,7 @@
 package com.myshop.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 商品实体类
@@ -15,10 +16,16 @@ public class Goods
 	private String desc;
 	private float marketprice;
 	private float sellprice;
+	private Integer stock;
 	private Integer clickcount;
 	private Integer sellcount;
+	private Integer commentCount;
 	private Integer categoryId;
+	private Integer brandId;
 	private Date createtime;
+	private List<GoodsDesc>  goodsDesc;
+	private List<GoodsTag> goodsTag;
+	
 	public Integer getId()
 	{
 		return id;
@@ -91,6 +98,14 @@ public class Goods
 	{
 		this.categoryId = categoryId;
 	}
+	public Integer getBrandId()
+	{
+		return brandId;
+	}
+	public void setBrandId(Integer brandId)
+	{
+		this.brandId = brandId;
+	}
 	public Date getCreatetime()
 	{
 		return createtime;
@@ -98,5 +113,37 @@ public class Goods
 	public void setCreatetime(Date createtime)
 	{
 		this.createtime = createtime;
+	}
+	public Integer getStock()
+	{
+		return stock;
+	}
+	public void setStock(Integer stock)
+	{
+		this.stock = stock;
+	}
+	public Integer getCommentCount()
+	{
+		return commentCount;
+	}
+	public void setCommentCount(Integer commentCount)
+	{
+		this.commentCount = commentCount;
+	}
+	public List<GoodsDesc> getGoodsDesc()
+	{
+		return goodsDesc;
+	}
+	public void setGoodsDesc(List<GoodsDesc> goodsDesc)
+	{
+		this.goodsDesc = goodsDesc;
+	}
+	public List<GoodsTag> getGoodsTag()
+	{
+		return goodsTag;
+	}
+	public void setGoodsTag(List<GoodsTag> goodsTag)
+	{
+		this.goodsTag = goodsTag;
 	}
 }

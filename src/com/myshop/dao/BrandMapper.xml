@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myshop.dao.BrandMapper">
+	<resultMap type="Brand" id="queryRecommendBrandResultMap">
+		<id column="bid" property="id"/>
+		<result column="bname" property="name"/>
+		<result column="logo" property="logo"/>
+		<result column="url" property="url"/>
+		
+		<collection property="goods" ofType="Goods">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="img" property="img"/>
+			<result column="marketprice" property="marketprice"/>
+			<result column="sellprice" property="sellprice"/>
+			<result column="clickcount" property="clickcount"/>
+		</collection>
+	</resultMap>
+
+	<select id="queryRecommendBrand" resultMap="queryRecommendBrandResultMap">
+		select b.id bid, b.`name` bname, b.logo, b.url,  g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount  from brand b, goods g 
+		where b.isRecommend = 0 and b.id = g.brandId
+		ORDER BY g.clickcount DESC
+		LIMIT 10;
+	</select>
+</mapper>

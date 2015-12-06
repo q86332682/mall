@@ -34,7 +34,7 @@ li {
 				<tr>
 					<td width="187" valign="middle">
 						<img src="${pageContext.request.contextPath}/img/h_32.gif" width="20" height="17" />
-						<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}'>
+						<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}&token=${token}'>
 							${goods.name}（人气：<span class="red">${goods.clickcount}</span>）
 						</a>
 					</td>
@@ -61,7 +61,7 @@ li {
 			<div style="width: 195px;">
 				<c:forEach items="${goodslist2}" var="goods">
 				<div style="float: left; width:45%; text-align: center;">
-					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}'>
+					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}&token=${token}'>
 						<img width="90" height="90" border="1" src="${pageContext.request.contextPath}/img/${goods.img}">
 						<p style="width: 80px;">${goods.name}</p>
 					</a>
@@ -87,7 +87,7 @@ li {
 			<div style="width: 195px;">
 				<c:forEach items="${goodslist3}" var="goods">
 				<div style="float: left; width:45%; text-align: center;">
-					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}'>
+					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}&token=${token}'>
 						<img width="90" height="90" border="1" src="${pageContext.request.contextPath}/img/${goods.img}">
 						<p style="width: 80px;">${goods.name}</p>
 					</a>

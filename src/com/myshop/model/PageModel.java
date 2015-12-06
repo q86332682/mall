@@ -22,7 +22,7 @@ public class PageModel<E>
 	{
 		pageNow = 1;
 		startIndex = 0;
-		pageSize = 10;
+		pageSize = 5;
 		totalPage = 1;
 		totalCount = 1;
 		pageQuery = null;

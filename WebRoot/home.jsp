@@ -81,7 +81,7 @@
 				<tr>
 					<td width="187" valign="middle">
 						<img src="${pageContext.request.contextPath}/img/h_32.gif" width="20" height="17" />
-						<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}'>
+						<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}&token=${token}'>
 							${goods.name}（人气：<span class="red">${goods.clickcount}</span>）
 						</a>
 					</td>
@@ -108,7 +108,7 @@
 			<div style="width: 195px;">
 				<c:forEach items="${goodslist2}" var="goods">
 				<div style="float: left; width:45%; text-align: center;">
-					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}'>
+					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}&token=${token}'>
 						<img width="90" height="90" border="1" src="${pageContext.request.contextPath}/img/${goods.img}">
 						<p style="width: 80px;">${goods.name}</p>
 					</a>
@@ -135,7 +135,7 @@
 			<div style="width: 195px;">
 				<c:forEach items="${goodslist3}" var="goods">
 				<div style="float: left; width:45%; text-align: center;">
-					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}'>
+					<a href = '${pageContext.request.contextPath}/home/goGoodsDetailPage.action?id=${goods.id}&token=${token}'>
 						<img width="90" height="90" border="1" src="${pageContext.request.contextPath}/img/${goods.img}">
 						<p style="width: 80px;">${goods.name}</p>
 					</a>
@@ -149,6 +149,24 @@
 <div id="sckf"></div>
 </div>
 <div id="foot"></div>
+</div>
+<!-- 不出现在页面上的数据 -->
+<div style="display: none;">
+	<!-- 分类下的商品 -->
+	<c:forEach items="${recommendCategory}" var="category">
+		<span>${category.name}</span>
+		<c:forEach items="${category.goods}" var="goods">
+			<span>${goods.name}, ${goods.img}, ${goods.marketprice}, ${goods.sellprice}</span>
+		</c:forEach>
+	</c:forEach>
+	
+	<!-- 品牌下的商品 -->
+	<c:forEach items="${recommendBrand}" var="brand">
+		<span>${brand.name}</span>
+		<c:forEach items="${brand.goods}" var="goods">
+			<span>${goods.name}, ${goods.img}, ${goods.marketprice}, ${goods.sellprice}</span>
+		</c:forEach>
+	</c:forEach>
 </div>
 </body>
 </html>

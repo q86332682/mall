@@ -22,4 +22,26 @@
 		LEFT JOIN category cat3 on cat2.id = cat3.pid
 		where cat1.`level` = 1 and cat2.`level` = 2 and cat3.`level` = 3
 	</select>
+	
+	<!-- 查询推荐分类resultMap -->
+	<resultMap type="Category" id="queryRecommendCategoryResultMap">
+		<id column="c1id" property="id"/>
+		<result column="c1name" property="name"/>
+		<collection property="goods" ofType="Goods">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="img" property="img"/>
+			<result column="marketprice" property="marketprice"/>
+			<result column="sellprice" property="sellprice"/>
+			<result column="clickcount" property="clickcount"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 查询推荐分类 -->
+	<select id="queryRecommendCategory" resultMap="queryRecommendCategoryResultMap">
+		SELECT c1.id c1id, c1.`name` c1name, g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount FROM `category` c1, goods g
+		where c1.isRecommend = 0 AND g.categoryId = c1.id
+		ORDER BY g.clickcount DESC
+		LIMIT 10;
+	</select>
 </mapper>

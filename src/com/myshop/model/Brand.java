@@ -3,20 +3,18 @@ package com.myshop.model;
 import java.util.List;
 
 /**
- * 商品分类实体类
+ * 品牌实体类
  * @author Administrator
  *
  */
-public class Category
+public class Brand
 {
 	private Integer id;
 	private String name;
-	private Integer level;
-	private Integer pid;
+	private String logo;
+	private String url;
 	private Integer isRecommend;
-	private List<Category> childCategoryList;
 	private List<Goods> goods;
-	
 	public Integer getId()
 	{
 		return id;
@@ -33,21 +31,21 @@ public class Category
 	{
 		this.name = name;
 	}
-	public Integer getLevel()
+	public String getLogo()
 	{
-		return level;
+		return logo;
 	}
-	public void setLevel(Integer level)
+	public void setLogo(String logo)
 	{
-		this.level = level;
+		this.logo = logo;
 	}
-	public Integer getPid()
+	public String getUrl()
 	{
-		return pid;
+		return url;
 	}
-	public void setPid(Integer pid)
+	public void setUrl(String url)
 	{
-		this.pid = pid;
+		this.url = url;
 	}
 	public Integer getIsRecommend()
 	{
@@ -56,14 +54,6 @@ public class Category
 	public void setIsRecommend(Integer isRecommend)
 	{
 		this.isRecommend = isRecommend;
-	}
-	public List<Category> getChildCategoryList()
-	{
-		return childCategoryList;
-	}
-	public void setChildCategoryList(List<Category> childCategoryList)
-	{
-		this.childCategoryList = childCategoryList;
 	}
 	public List<Goods> getGoods()
 	{

@@ -16,4 +16,9 @@ public interface CategoryMapper
 	 * @return
 	 */
 	public List<Category> queryCategoryList();
+	
+	/**
+	 * 查询推荐分类
+	 */
+	public List<Category> queryRecommendCategory();
 }

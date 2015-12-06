@@ -2,10 +2,13 @@ package com.myshop.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.myshop.model.Brand;
 import com.myshop.model.Category;
 import com.myshop.model.Goods;
+import com.myshop.model.Goodscomment;
 import com.myshop.model.Hotsearch;
-import com.myshop.model.Order;
 import com.myshop.model.PageModel;
 
 /**
@@ -87,5 +90,36 @@ public interface GoodsService
 	 * @param id
 	 * @return
 	 */
-	public Goods getGoodsById(Integer id);
+	public Goods getGoodsById(Integer id, HttpServletRequest req);
+	
+	/**
+	 * 获得推荐分类商品
+	 * @return
+	 */
+	public List<Category> getRecommendCategory();
+	
+	/**
+	 * 获得推荐品牌
+	 * @return
+	 */
+	public List<Brand> getRecommendBrand();	
+	
+	/**
+	 * 获得评论列表
+	 * @param pageModel
+	 * @return
+	 */
+	public PageModel<Goodscomment> getCommentList(PageModel<Goodscomment> pageModel);
+	
+	/**
+	 * 发布评论
+	 * @param goodscomment
+	 */
+	public void publishComment(Goodscomment goodscomment);
+	
+	/**
+	 * 修改评论
+	 * @param goodscomment
+	 */
+	public void updateComment(Goodscomment goodscomment);
 }

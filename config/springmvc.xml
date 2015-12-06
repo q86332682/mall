@@ -25,9 +25,16 @@
 	
 	<!-- 拦截器 -->
  	<mvc:interceptors>
+ 		<!-- 登录拦截器 -->
  		<mvc:interceptor>
  			<mvc:mapping path="/**"/>
  			<bean class="com.myshop.Interceptor.LoginInterceptor"/>
+ 		</mvc:interceptor>
+ 		
+ 		<!-- token拦截器 -->
+  		<mvc:interceptor>
+ 			<mvc:mapping path="/**"/>
+ 			<bean class="com.myshop.Interceptor.ClickCountInterceptor"/>
  		</mvc:interceptor>
  	</mvc:interceptors>
 </beans>       

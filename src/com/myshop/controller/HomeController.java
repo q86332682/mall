@@ -3,7 +3,7 @@ package com.myshop.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.myshop.model.Brand;
 import com.myshop.model.Category;
 import com.myshop.model.Goods;
+import com.myshop.model.Goodscomment;
 import com.myshop.model.Hotsearch;
 import com.myshop.model.Order;
 import com.myshop.model.Ordergoods;
@@ -79,12 +81,16 @@ public class HomeController
 		List<Goods> goodslist2 = goodsService.getGoodsByRecommend();
 		List<Goods> goodslist3 = goodsService.getGoodsBySellhot();
 		List<Category> categorylist = goodsService.getCategorylist();
+		List<Category> recommendCategory = goodsService.getRecommendCategory();
+		List<Brand> recommendBrand = goodsService.getRecommendBrand();
 		
 		//model.addAttribute("hotSearchlist", hotSearchlist);
 		model.addAttribute("goodslist1", goodslist1);
 		model.addAttribute("goodslist2", goodslist2);
 		model.addAttribute("goodslist3", goodslist3);
 		model.addAttribute("categorylist", categorylist);
+		model.addAttribute("recommendCategory", recommendCategory);
+		model.addAttribute("recommendBrand", recommendBrand);
 		
 		return "home";
 	}
@@ -220,8 +226,14 @@ public class HomeController
 	}
 	
 	@RequestMapping("/goGoodsDetailPage")
-	public String goGoodsDetailPage(Model model, Integer id)
+	public String goGoodsDetailPage(Model model, HttpServletRequest req, Integer id, PageModel<Goodscomment> pageModel)
 	{
+		model.addAttribute("goods", goodsService.getGoodsById(id, req));
+		Goodscomment pageQuery = new Goodscomment();
+		pageQuery.setGoodsId(id);
+		pageModel.setPageQuery(pageQuery);
+		model.addAttribute("commentList", goodsService.getCommentList(pageModel));
+		
 		List<Goods> goodslist1 = goodsService.getGoodsByPopRank();
 		List<Goods> goodslist2 = goodsService.getGoodsByRecommend();
 		List<Goods> goodslist3 = goodsService.getGoodsBySellhot();
@@ -229,7 +241,6 @@ public class HomeController
 		model.addAttribute("goodslist2", goodslist2);
 		model.addAttribute("goodslist3", goodslist3);
 		
-		model.addAttribute("goods", goodsService.getGoodsById(id));
 		return "product_select";
 	}
 	

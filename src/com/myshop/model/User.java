@@ -15,6 +15,12 @@ public class User
 	private String email;
 	private String addr;
 	private String mobile;
+	private Integer gold;
+	private Integer socre;
+	private String level;
+	private Integer commentCount;
+	private Integer collectCount;
+	private Integer orderCount;
 	private Date createtime;
 	public Integer getId()
 	{
@@ -71,5 +77,53 @@ public class User
 	public void setCreatetime(Date createtime)
 	{
 		this.createtime = createtime;
+	}
+	public Integer getGold()
+	{
+		return gold;
+	}
+	public void setGold(Integer gold)
+	{
+		this.gold = gold;
+	}
+	public Integer getSocre()
+	{
+		return socre;
+	}
+	public void setSocre(Integer socre)
+	{
+		this.socre = socre;
+	}
+	public String getLevel()
+	{
+		return level;
+	}
+	public void setLevel(String level)
+	{
+		this.level = level;
+	}
+	public Integer getCommentCount()
+	{
+		return commentCount;
+	}
+	public void setCommentCount(Integer commentCount)
+	{
+		this.commentCount = commentCount;
+	}
+	public Integer getCollectCount()
+	{
+		return collectCount;
+	}
+	public void setCollectCount(Integer collectCount)
+	{
+		this.collectCount = collectCount;
+	}
+	public Integer getOrderCount()
+	{
+		return orderCount;
+	}
+	public void setOrderCount(Integer orderCount)
+	{
+		this.orderCount = orderCount;
 	}
 }

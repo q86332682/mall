@@ -61,9 +61,40 @@
 		LIMIT #{startIndex}, #{pageSize}
 	</select>
 	
+	<resultMap type="Goods" id="queryGoodsByIdResultMap">
+		<id column="id" property="id"/>
+		<result column="img" property="img"/>
+		<result column="name" property="name"/>
+		<result column="marketprice" property="marketprice"/>
+		<result column="sellprice" property="sellprice"/>
+		<result column="stock" property="stock"/>
+		<result column="clickcount" property="clickcount"/>
+		<result column="sellcount" property="sellcount"/>
+		<result column="commentCount" property="commentCount"/>
+		<result column="desc" property="desc"/>
+		
+		<collection property="goodsDesc" ofType="GoodsDesc">
+			<id column="gdid" property="id"/>
+			<result column="gdname" property="name"/>
+			<result column="gdval" property="val"/>
+		</collection>
+		
+		<collection property="goodsTag" ofType="GoodsTag">
+			<id column="tid" property="id"/>
+			<result column="tname" property="name"/>
+			<result column="tcount" property="count"/>
+		</collection>
+	</resultMap>
+	
 	<!-- 通过id查找商品 -->
-	<select id="queryGoodsById" parameterType="Integer" resultType="Goods">
-		select g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.desc from goods g where g.id = #{id} limit 1
+	<select id="queryGoodsById" parameterType="Integer" resultMap="queryGoodsByIdResultMap">
+<!-- 		select g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.desc from goods g where g.id = #{id} limit 1 -->
+		select g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, 
+		g.desc, gd.id gdid, gd.`name` gdname, gd.val gdval, t.id tid, t.`name` tname, t.count tcount
+		from goods g
+		LEFT JOIN goodsdesc gd ON g.id = gd.goodsId
+		LEFT JOIN goodstag t ON g.id = t.goodsId
+		where g.id = 1
 	</select>
 	
 	<!-- 更新点击数 -->
