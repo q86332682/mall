@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.myshop.model.Goods;
 import com.myshop.model.Order;
+import com.myshop.model.Ordergoods;
 import com.myshop.model.PageModel;
 
 public interface GoodsMapper
@@ -86,5 +87,17 @@ public interface GoodsMapper
 	 * 更新卖出数量
 	 * @param id
 	 */
-	public void updateSellCount(List<Integer> ids);
+	public void updateSellCount(List<Ordergoods> OrdergoodsList);
+	
+	/**
+	 * 更新评论数
+	 * @param id
+	 */
+	public void updateCommentCount(Integer id);
+	
+	/**
+	 * 更新库存
+	 * @param OrdergoodsList
+	 */
+	public void updateStokc(List<Ordergoods> OrdergoodsList);
 }

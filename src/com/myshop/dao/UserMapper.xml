@@ -21,4 +21,24 @@
 		</where>
 		limit 1
 	</select>
+	
+	<update id="updateCommentCount" parameterType="Integer">
+		update `user` set commentCount = commentCount + 1 where id = #{id}
+	</update>
+	
+	<update id="updateCollectCount" parameterType="Integer">
+		update `user` set collectCount = collectCount + 1 where id = #{id}
+	</update>
+	
+	<update id="updateScore" parameterType="Scorelog">
+		update `user` set score = score + #{score} where id = #{userId}
+	</update>
+	
+	<update id="updateOrderCount" parameterType="Integer">
+		update `user` set orderCount = orderCount + 1 where id = #{id}
+	</update>
+	
+	<update id="updateGold" parameterType="Map">
+		update `user` set gold = gold - #{gold} where id = #{id} 
+	</update>
 </mapper>

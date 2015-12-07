@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myshop.model.Order;
 import com.myshop.model.Ordergoods;
+import com.myshop.model.User;
 import com.myshop.service.GoodsService;
 import com.myshop.service.UserService;
 
@@ -43,11 +44,12 @@ public class BuyGoodsController
 	public String completeBuy(HttpSession session)
 	{
 		LOG.info("完成购买!!!!");
+		User user = (User) session.getAttribute("user");
 		Order myOrder = (Order) session.getAttribute("myOrder");
 		float cartTotalprice = (Float) session.getAttribute("cartTotalprice");
 		myOrder.setTotalprice(cartTotalprice);
 		List<Ordergoods> list = (List<Ordergoods>) session.getAttribute("catrlist");
-		userService.buyGoods(myOrder, list);
+		userService.buyGoods(myOrder, list, user);
 		session.setAttribute("catrlist", null);
 		return "redirect:/home/goMyOrderPage.action";
 	}

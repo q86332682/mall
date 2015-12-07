@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.myshop.model.Brand;
 import com.myshop.model.Category;
 import com.myshop.model.Goods;
+import com.myshop.model.GoodsCollect;
+import com.myshop.model.GoodsTag;
 import com.myshop.model.Goodscomment;
 import com.myshop.model.Hotsearch;
 import com.myshop.model.PageModel;
@@ -110,16 +112,4 @@ public interface GoodsService
 	 * @return
 	 */
 	public PageModel<Goodscomment> getCommentList(PageModel<Goodscomment> pageModel);
-	
-	/**
-	 * 发布评论
-	 * @param goodscomment
-	 */
-	public void publishComment(Goodscomment goodscomment);
-	
-	/**
-	 * 修改评论
-	 * @param goodscomment
-	 */
-	public void updateComment(Goodscomment goodscomment);
 }

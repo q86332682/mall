@@ -16,7 +16,7 @@ public class User
 	private String addr;
 	private String mobile;
 	private Integer gold;
-	private Integer socre;
+	private Integer score;
 	private String level;
 	private Integer commentCount;
 	private Integer collectCount;
@@ -86,13 +86,14 @@ public class User
 	{
 		this.gold = gold;
 	}
-	public Integer getSocre()
+
+	public Integer getScore()
 	{
-		return socre;
+		return score;
 	}
-	public void setSocre(Integer socre)
+	public void setScore(Integer score)
 	{
-		this.socre = socre;
+		this.score = score;
 	}
 	public String getLevel()
 	{

@@ -94,7 +94,7 @@
 		from goods g
 		LEFT JOIN goodsdesc gd ON g.id = gd.goodsId
 		LEFT JOIN goodstag t ON g.id = t.goodsId
-		where g.id = 1
+		where g.id = #{id}
 	</select>
 	
 	<!-- 更新点击数 -->
@@ -104,9 +104,26 @@
 
 	<!-- 更新卖出数 -->
 	<update id="updateSellCount" parameterType="List">
-		update goods set sellcount = sellcount + 1 where id in
-		<foreach collection="list" item="id" index="index" separator="," open="(" close=")">
-			#{id}
+		<foreach collection="list" item="item" index="index" separator=";">
+			update goods
+			<set>
+				sellcount = sellcount + #{item.num}
+			</set>
+			where id = #{item.goodsId}
+		</foreach>
+	</update>
+	
+	<update id="updateCommentCount" parameterType="Integer">
+		update goods set commentCount = commentCount + 1 where id = #{id}
+	</update>
+	
+	<update id="updateStokc" parameterType="List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			update goods
+			<set>
+				stock = stock - #{item.num}
+			</set>
+			where id = #{item.goodsId}
 		</foreach>
 	</update>
 </mapper>

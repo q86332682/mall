@@ -104,7 +104,6 @@ li {
 <div id="zitiao"><img src="${pageContext.request.contextPath}/img/05.gif"
 	width="676" height="31" /></div>
 <div id="xshangpin">
-	<s:push value="product">
 	<ul>
 		<li>
 			<table border="0" width="100%" cellpadding="0" cellspacing="0">
@@ -173,9 +172,26 @@ li {
 			</p>
 		</li>
 	</ul>
-	</s:push>
 </div>
 </div>
+</div>
+
+<!-- 以下内容不显示在页面 -->
+<div style="display: none;">
+	<!-- 商品属性,信息 -->
+	<c:forEach items="${goods.goodsDesc}" var="gd">
+		<span>${gd.name}, ${gd.val}</span>
+	</c:forEach>
+	
+	<!-- 商品标签 -->
+	<c:forEach items="${goods.goodsTag}" var="t">
+		<span>${t.name}, ${t.count}</span>
+	</c:forEach>
+	
+	<!-- 商品评论 -->
+	<c:forEach items="${commentList.list}" var="c">
+		<span>${c.username}, ${c.userlevel}, ${c.score}, ${c.content}</span>
+	</c:forEach>
 </div>
 </body>
 </html>

@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.myshop.dao.BrandMapper;
 import com.myshop.dao.CategoryMapper;
+import com.myshop.dao.GoodsCollectMapper;
 import com.myshop.dao.GoodsMapper;
+import com.myshop.dao.GoodsTagMapper;
 import com.myshop.dao.GoodscommentMapper;
 import com.myshop.dao.HotsearchMapper;
+import com.myshop.dao.UserMapper;
 import com.myshop.model.Brand;
 import com.myshop.model.Category;
 import com.myshop.model.Goods;
+import com.myshop.model.GoodsCollect;
+import com.myshop.model.GoodsTag;
 import com.myshop.model.Goodscomment;
 import com.myshop.model.Hotsearch;
 import com.myshop.model.PageModel;
@@ -165,23 +170,5 @@ public class GoodsServiceImpl implements GoodsService
 		pageModel.setTotalCount(goodscommentMapper.queryCommentCount(pageModel.getPageQuery()));
 		pageModel.setList(goodscommentMapper.queryCommentList(pageModel));
 		return pageModel;
-	}
-	
-	/**
-	 * 发布评论
-	 * @param goodscomment
-	 */
-	public void publishComment(Goodscomment goodscomment)
-	{
-		goodscommentMapper.insertComment(goodscomment);
-	}
-	
-	/**
-	 * 修改评论
-	 * @param goodscomment
-	 */
-	public void updateComment(Goodscomment goodscomment)
-	{
-		goodscommentMapper.updateComment(goodscomment);
 	}
 }
