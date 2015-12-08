@@ -126,4 +126,23 @@
 			where id = #{item.goodsId}
 		</foreach>
 	</update>
+	
+	<select id="preciseSearch" parameterType="PageModel" resultType="Goods">
+		<![CDATA[select t.id tid, t.`name` tname, g.id, g.`name`, g.img, g.marketprice, 
+		g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount from goodstag t, 
+		(select id, name, img, marketprice, sellprice, stock, clickcount, sellcount, commentCount, createtime from goods g 
+		where g.brandId = #{pageQuery.brandId} and g.categoryId = #{pageQuery.categoryId}) g
+		where t.goodsId = g.id and t.id = #{pageQuery.tagId} and g.sellprice >= #{pageQuery.startRange} and 
+		g.sellprice <= #{pageQuery.endRange} and g.`name` LIKE '${pageQuery.name}%'
+		ORDER BY g.clickcount DESC, g.sellcount DESC, g.commentCount DESC, g.createtime DESC 
+		LIMIT #{startIndex}, #{pageSize}]]>
+	</select>
+	
+	<select id="preciseSearchCount" parameterType="Goods" resultType="int">
+		<![CDATA[select count(*) from goodstag t, 
+		(select id, name, img, marketprice, sellprice, stock, clickcount, sellcount, commentCount, createtime from goods g 
+		where g.brandId = #{brandId} and g.categoryId = #{categoryId}) g
+		where t.goodsId = g.id and t.id = #{tagId} and g.sellprice >= #{startRange} and 
+		g.sellprice <= #{endRange} and g.`name` LIKE '${name}%']]>
+	</select>
 </mapper>

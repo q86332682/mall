@@ -112,4 +112,11 @@ public interface GoodsService
 	 * @return
 	 */
 	public PageModel<Goodscomment> getCommentList(PageModel<Goodscomment> pageModel);
+	
+	/**
+	 * 精确查找
+	 * @param pageModel
+	 * @return
+	 */
+	public PageModel<Goods> preciseSearch(PageModel<Goods> pageModel);
 }

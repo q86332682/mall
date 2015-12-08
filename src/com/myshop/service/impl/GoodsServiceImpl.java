@@ -171,4 +171,16 @@ public class GoodsServiceImpl implements GoodsService
 		pageModel.setList(goodscommentMapper.queryCommentList(pageModel));
 		return pageModel;
 	}
+	
+	/**
+	 * 精确查找
+	 * @param pageModel
+	 * @return
+	 */
+	public PageModel<Goods> preciseSearch(PageModel<Goods> pageModel)
+	{
+		pageModel.setTotalCount(goodsMapper.preciseSearchCount(pageModel.getPageQuery()));
+		pageModel.setList(goodsMapper.preciseSearch(pageModel));
+		return pageModel;
+	}
 }

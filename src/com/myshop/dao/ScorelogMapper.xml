@@ -5,4 +5,8 @@
 		INSERT INTO scorelog(info, score, userId, createtime)
 		values(#{info}, #{score}, #{userId}, SYSDATE())
 	</insert>
+	
+	<select id="queryScorelog" parameterType="Integer" resultType="Scorelog">
+		SELECT * FROM `scorelog` where userId = #{id} LIMIT 10
+	</select>
 </mapper>

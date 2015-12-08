@@ -66,5 +66,26 @@
 </div>
   <div id="foot"></div>
 </div>
+<!-- 以下内容不显示 -->
+<div style="display: none;">
+	<!-- 用户资料 -->
+	<span>${user.username}, ${user.email}, ${user.addr}, ${user.mobile}</span>
+	<span>${user.gold}, ${user.score}, ${user.commentCount}, ${user.collectCount}, ${user.orderCount}</span>
+	
+	<!-- 会员等级列表 -->
+	<c:forEach items="${userlevelList}" var="item">
+		<span>${item.name}, ${item.score}, ${item.percent}, ${item.desc}</span>
+	</c:forEach>
+	
+	<!-- 积分日志列表 -->
+	<c:forEach items="${scorelog}" var="item">
+		<span>${item.info}, ${item.score}, ${item.createtime}</span>
+	</c:forEach>
+	
+	<!-- 用户收藏列表 -->
+	<c:forEach items="${goodsCollect}" var="item">
+		<span>${item.goodsname}, ${item.goodsimg}, ${item.goodsMarketprice}, ${item.goodsSellprice}, ${item.createtime}</span>
+	</c:forEach>
+</div>
 </body>
 </html>

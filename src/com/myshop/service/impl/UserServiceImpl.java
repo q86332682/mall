@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.myshop.dao.OrderMapper;
 import com.myshop.dao.OrdergoodsMapper;
 import com.myshop.dao.ScorelogMapper;
 import com.myshop.dao.UserMapper;
+import com.myshop.dao.UserlevelMapper;
 import com.myshop.model.Goods;
 import com.myshop.model.GoodsCollect;
 import com.myshop.model.GoodsTag;
@@ -29,6 +32,7 @@ import com.myshop.model.Ordergoods;
 import com.myshop.model.PageModel;
 import com.myshop.model.Scorelog;
 import com.myshop.model.User;
+import com.myshop.model.Userlevel;
 import com.myshop.service.UserService;
 
 @Service
@@ -65,6 +69,10 @@ public class UserServiceImpl implements UserService
 	@Autowired
 	private ScorelogMapper scorelogMapper;
 	
+	@Autowired
+	private UserlevelMapper userlevelMapper;
+	
+	@Transactional
 	@Override
 	public void register(User user)
 	{
@@ -72,6 +80,11 @@ public class UserServiceImpl implements UserService
 		if(isExist == null)
 		{
 			userMapper.insertUser(user);
+			Scorelog scorelog = new Scorelog();
+			scorelog.setUserId(user.getId());
+			scorelog.setInfo("注册加50积分!");
+			scorelog.setScore(50);
+			AddScore(scorelog, user);
 		}
 		else
 		{
@@ -79,10 +92,17 @@ public class UserServiceImpl implements UserService
 		}
 	}
 
+	@Transactional
 	@Override
 	public User login(User user)
 	{
-		return userMapper.queryUser(user);
+		User loginUser = userMapper.queryUser(user);
+		Scorelog scorelog = new Scorelog();
+		scorelog.setUserId(loginUser.getId());
+		scorelog.setInfo("登录加10积分!");
+		scorelog.setScore(10);
+		AddScore(scorelog, loginUser);
+		return loginUser;
 	}
 
 	@Override
@@ -116,9 +136,9 @@ public class UserServiceImpl implements UserService
 		int socre = (int) order.getTotalprice();
 		scorelog.setInfo("购买商品加" + socre  + "积分!");
 		scorelog.setScore(socre);
-		AddScore(scorelog);
-		user.setScore(user.getScore() + socre);
+		AddScore(scorelog, user);
 		
+		socre = (int)(socre * (user.getPercent() / 100.0));
 		int gold = user.getGold() - socre <= 0 ? user.getGold() : socre; 
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("id", order.getUserId());
@@ -155,8 +175,8 @@ public class UserServiceImpl implements UserService
 			scorelog.setScore(10);
 		}
 		
-		AddScore(scorelog);
-		user.setScore(user.getScore() + scorelog.getScore());
+		AddScore(scorelog, user);
+		
 	}
 	
 	@Override
@@ -206,9 +226,28 @@ public class UserServiceImpl implements UserService
 	/**
 	 * 增加积分
 	 */
-	public void AddScore(Scorelog scorelog)
+	public void AddScore(Scorelog scorelog, User user)
 	{
 		userMapper.updateScore(scorelog);
 		scorelogMapper.insertScorelog(scorelog);
+		user = userMapper.queryUser(user);
+	}
+
+	@Override
+	public List<Userlevel> getUserlevelList()
+	{
+		return userlevelMapper.queryUserlevelList();
+	}
+
+	@Override
+	public List<Scorelog> getScorelog(Integer userId)
+	{
+		return scorelogMapper.queryScorelog(userId);
+	}
+
+	@Override
+	public List<GoodsCollect> getGoodsCollect(Integer userId)
+	{
+		return goodsCollectMapper.queryGoodsCollect(userId);
 	}
 }

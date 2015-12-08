@@ -25,6 +25,9 @@ public class Goods
 	private Date createtime;
 	private List<GoodsDesc>  goodsDesc;
 	private List<GoodsTag> goodsTag;
+	private Integer tagId;
+	private Integer startRange;
+	private Integer endRange;
 	
 	public Integer getId()
 	{
@@ -145,5 +148,29 @@ public class Goods
 	public void setGoodsTag(List<GoodsTag> goodsTag)
 	{
 		this.goodsTag = goodsTag;
+	}
+	public Integer getTagId()
+	{
+		return tagId;
+	}
+	public void setTagId(Integer tagId)
+	{
+		this.tagId = tagId;
+	}
+	public Integer getStartRange()
+	{
+		return startRange;
+	}
+	public void setStartRange(Integer startRange)
+	{
+		this.startRange = startRange;
+	}
+	public Integer getEndRange()
+	{
+		return endRange;
+	}
+	public void setEndRange(Integer endRange)
+	{
+		this.endRange = endRange;
 	}
 }

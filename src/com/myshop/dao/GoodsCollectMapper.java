@@ -1,5 +1,7 @@
 package com.myshop.dao;
 
+import java.util.List;
+
 import com.myshop.model.GoodsCollect;
 
 /**
@@ -14,4 +16,11 @@ public interface GoodsCollectMapper
 	 * @param goodsCollect
 	 */
 	public void insertGoodsCollect(GoodsCollect goodsCollect);
+	
+	/**
+	 * 查询用户收藏
+	 * @param id
+	 * @return
+	 */
+	public List<GoodsCollect> queryGoodsCollect(Integer id);
 }

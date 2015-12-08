@@ -100,4 +100,18 @@ public interface GoodsMapper
 	 * @param OrdergoodsList
 	 */
 	public void updateStokc(List<Ordergoods> OrdergoodsList);
+	
+	/**
+	 * 精确查找
+	 * @param pageModel
+	 * @return
+	 */
+	public List<Goods> preciseSearch(PageModel<Goods> pageModel);
+	
+	/**
+	 * 精确查找记录数
+	 * @param goods
+	 * @return
+	 */
+	public int preciseSearchCount(Goods goods);
 }

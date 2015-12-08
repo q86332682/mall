@@ -10,6 +10,7 @@ import com.myshop.model.Ordergoods;
 import com.myshop.model.PageModel;
 import com.myshop.model.Scorelog;
 import com.myshop.model.User;
+import com.myshop.model.Userlevel;
 
 /**
  * 用户业务操作接口
@@ -77,5 +78,23 @@ public interface UserService
 	/**
 	 * 增加积分
 	 */
-	public void AddScore(Scorelog scorelog);
+	public void AddScore(Scorelog scorelog, User user);
+	
+	/**
+	 * 获得用户等级列表
+	 * @return
+	 */
+	public List<Userlevel> getUserlevelList();
+	
+	/**
+	 * 获得积分日志
+	 * @return
+	 */
+	public List<Scorelog> getScorelog(Integer userId);
+	
+	/**
+	 * 获得用户收藏
+	 * @return
+	 */
+	public List<GoodsCollect> getGoodsCollect(Integer userId);
 }

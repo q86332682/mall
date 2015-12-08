@@ -18,6 +18,7 @@ public class User
 	private Integer gold;
 	private Integer score;
 	private String level;
+	private Integer percent;
 	private Integer commentCount;
 	private Integer collectCount;
 	private Integer orderCount;
@@ -102,6 +103,14 @@ public class User
 	public void setLevel(String level)
 	{
 		this.level = level;
+	}
+	public Integer getPercent()
+	{
+		return percent;
+	}
+	public void setPercent(Integer percent)
+	{
+		this.percent = percent;
 	}
 	public Integer getCommentCount()
 	{

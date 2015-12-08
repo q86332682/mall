@@ -1,5 +1,7 @@
 package com.myshop.dao;
 
+import java.util.List;
+
 import com.myshop.model.Scorelog;
 
 /**
@@ -14,4 +16,10 @@ public interface ScorelogMapper
 	 * @param Scorelog
 	 */
 	public void insertScorelog(Scorelog scorelog);
+	
+	/**
+	 * 查询积分日志
+	 * @return
+	 */
+	public List<Scorelog> queryScorelog(Integer id);
 }

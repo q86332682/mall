@@ -165,6 +165,9 @@ public class HomeController
 		pageModel.setPageQuery(order);
 		PageModel<Order> resultPageModel = userService.getMyOrderList(pageModel);
 		model.addAttribute("resultPageModel", resultPageModel);
+		model.addAttribute("userlevelList", userService.getUserlevelList());
+		model.addAttribute("scorelog", userService.getScorelog(order.getUserId()));
+		model.addAttribute("goodsCollect", userService.getGoodsCollect(order.getUserId()));
 		return "order_list";
 	}
 	
@@ -242,6 +245,24 @@ public class HomeController
 		model.addAttribute("goodslist3", goodslist3);
 		
 		return "product_select";
+	}
+	
+	@RequestMapping("/preciseSearch")
+	public String preciseSearch(Model model, Goods preciseSearch, PageModel<Goods> pageModel)
+	{
+		List<Goods> goodslist1 = goodsService.getGoodsByPopRank();
+		List<Goods> goodslist2 = goodsService.getGoodsByRecommend();
+		List<Goods> goodslist3 = goodsService.getGoodsBySellhot();
+		model.addAttribute("goodslist1", goodslist1);
+		model.addAttribute("goodslist2", goodslist2);
+		model.addAttribute("goodslist3", goodslist3);
+		
+		pageModel.setPageQuery(preciseSearch);
+		PageModel<Goods> resultPageModel = goodsService.preciseSearch(pageModel);
+		model.addAttribute("menuImg", "04.gif");
+		model.addAttribute("resultPageModel", resultPageModel.getList().size() > 0 && resultPageModel.getList().get(0) != null ? 
+				resultPageModel : null);
+		return "goods_list";
 	}
 	
 	@RequestMapping("/testPageModel")
