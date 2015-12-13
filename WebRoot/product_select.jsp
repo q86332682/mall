@@ -15,6 +15,85 @@ li {
 </head>
 <body>
 <%@ include file="head.jsp"%>
+<script type="text/javascript">
+	$(function(){
+		$("#pubComment").click(function(){
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/goodsDetail/publishComment.action',
+				data : {
+					"goodsId" : 1,
+					"score" : 5,
+					"content" : "好"
+				},
+				success : function(data){
+					alert("评论成功");
+				}
+			});
+		});
+		
+		$("#updateComment").click(function(){
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/goodsDetail/updateComment.action',
+				data : {
+					"id" : 1,
+					"score" : 10,
+					"content" : "好"
+				},
+				success : function(data){
+					alert("改评论成功");
+				}
+			});
+		});
+		
+		$("#addTag").click(function(){
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/goodsDetail/addGoodsTag.action',
+				data : {
+					"name" : "标签",
+					"goodsId" : 1,
+					"count" : 1
+				},
+				success : function(data){
+					alert("加标签成功");
+				}
+			});
+		});
+		
+		$("#tagClick").click(function(){
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/goodsDetail/updateGoodsTag.action',
+				data : {
+					"id" : 7
+				},
+				success : function(data){
+					alert("改标签成功");
+				}
+			});
+		});
+		
+		$("#collect").click(function(){
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/goodsDetail/collectGoods.action',
+				data : {
+					"goodsId" : 1,
+					"goodsname" : "Java 编程词典",
+					"goodsimg" : "201004201340260341.jpg",
+					"goodsMarketprice" : 150,
+					"goodsSellprice" : 120
+				},
+				success : function(data){
+					alert("收藏成功");
+				}
+			});
+		});
+	});
+</script>
+
 <div id="box">
 <div id="right">
 <!-- 商品排行 -->
@@ -150,6 +229,15 @@ li {
 						[  配送说明 ]</span>　　　
 						<span style="color: gray; text-decoration:underline; ">
 						[  付款方式 ] 
+						</span>
+						<br>
+						<br>
+						<span>
+						<input id="pubComment" type="button" value="发布评论">
+						<input id="updateComment" type="button" value="修改评论">
+						<input id="addTag" type="button" value="增加标签">
+						<input id="tagClick" type="button" value="标签点击">
+						<input id="collect" type="button" value="收藏商品">
 						</span>
 						</p>
 					</td>

@@ -115,8 +115,9 @@ public class HomeController
 	}
 	
 	@RequestMapping("/goCartPage")
-	public String goCartPage(HttpSession session, Goods goods)
+	public String goCartPage(HttpServletRequest req, Goods goods)
 	{
+		HttpSession session = req.getSession();
 		List<Ordergoods> list = (List<Ordergoods>) session.getAttribute("catrlist");
 		if(list == null)
 			list = new ArrayList<Ordergoods>();
@@ -136,6 +137,7 @@ public class HomeController
 			
 			if(flag)
 			{
+				goods = goodsService.getGoodsById(goods.getId(), req);
 				Ordergoods ordergoods = new Ordergoods(goods);
 				list.add(0, ordergoods);
 			}

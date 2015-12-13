@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myshop.dao.GoodsMapper">
 	<select id="queryGoodsCount" resultType="int">
-		SELECT count(*) from goods
+<!-- 		SELECT count(*) from goods -->
+		SELECT (t.AUTO_INCREMENT - 1) count from information_schema.`TABLES` t 
+		where t.TABLE_SCHEMA = 'myshop' AND t.TABLE_NAME = 'goods'
 	</select>
 	
 	<select id="querySearchGoodsCount" parameterType="Goods" resultType="int">
@@ -11,9 +13,12 @@
 
 	<!-- 查询商品按时间排序 -->
 	<select id="queryGoodsTime" parameterType="PageModel" resultType="Goods">
-		SELECT
-		g.id, g.name, g.img, g.marketprice, g.sellprice from goods g ORDER BY g.createtime DESC 
-		LIMIT #{startIndex}, #{pageSize}
+<!-- 		SELECT -->
+<!-- 		g.id, g.name, g.img, g.marketprice, g.sellprice from goods g ORDER BY g.createtime DESC  -->
+<!-- 		LIMIT #{startIndex}, #{pageSize} -->
+		<![CDATA[SELECT g.id, g.name, g.img, g.marketprice, g.sellprice from goods g 
+		where g.createtime <= (select createtime from goods ORDER BY createtime DESC LIMIT #{startIndex}, 1)
+		ORDER BY g.createtime DESC LIMIT #{pageSize}]]>
 	</select>
 
 	<!-- 查询商品按点击数排序 -->
