@@ -39,9 +39,26 @@
 	
 	<!-- 查询推荐分类 -->
 	<select id="queryRecommendCategory" resultMap="queryRecommendCategoryResultMap">
-		SELECT c1.id c1id, c1.`name` c1name, g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount FROM `category` c1, goods g
-		where c1.isRecommend = 0 AND g.categoryId = c1.id
-		ORDER BY g.clickcount DESC
-		LIMIT 10;
+<!-- 		SELECT c1.id c1id, c1.`name` c1name, g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount FROM goods g STRAIGHT_JOIN `category` c1  -->
+<!-- 		where c1.isRecommend = 0 AND g.categoryId = c1.id -->
+<!-- 		ORDER BY g.clickcount DESC -->
+<!-- 		LIMIT 10; -->
+
+		SELECT c1.id c1id, c1.`name` c1name, g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount, g.categoryId
+		FROM `category` c1 JOIN
+		((SELECT g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount, g.categoryId
+		FROM goods g FORCE INDEX(idx_categoryId_createtime)
+		WHERE g.categoryId = 330
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		UNION ALL
+		(SELECT g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount, g.categoryId
+		FROM goods g FORCE INDEX(idx_categoryId_createtime)
+		WHERE g.categoryId = 331
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		) g ON g.categoryId = c1.id
+		where c1.isRecommend = 0 
+		ORDER BY c1id ASC
 	</select>
 </mapper>

@@ -2,15 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myshop.dao.GoodscommentMapper">
 	<select id="queryCommentCount" parameterType="Goodscomment" resultType="int">
-		SELECT count(*) FROM `goodscomment` c
-		where c.goodsId = #{goodsId}
+<!-- 		SELECT count(*) FROM `goodscomment` c -->
+<!-- 		where c.goodsId = #{goodsId} -->
+		
+		SELECT commentCount from goods where id = #{goodsId}
 	</select>
 
 	<select id="queryCommentList" parameterType="PageModel" resultType="Goodscomment">
-		SELECT c.id, c.username, c.userlevel, c.score, c.content, c.createtime FROM `goodscomment` c
-		where c.goodsId = #{pageQuery.goodsId}
-		ORDER BY c.createtime DESC
-		LIMIT #{startIndex}, #{pageSize}
+<!-- 		SELECT c.id, c.username, c.userlevel, c.score, c.content, c.createtime FROM `goodscomment` c -->
+<!-- 		where c.goodsId = #{pageQuery.goodsId} -->
+<!-- 		ORDER BY c.createtime DESC -->
+<!-- 		LIMIT #{startIndex}, #{pageSize} -->
+		<![CDATA[SELECT c.id, c.username, c.userlevel, c.score, c.content, c.createtime 
+		FROM `goodscomment` c 
+		where c.goodsId = 1 AND c.createtime <= (SELECT createtime from `goodscomment` where goodsId = 1 ORDER BY createtime DESC LIMIT 2000, 1)
+		ORDER BY c.createtime DESC LIMIT 5;]]>
 	</select>
 	
 	<insert id="insertComment" parameterType="Goodscomment">

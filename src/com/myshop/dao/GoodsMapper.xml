@@ -8,7 +8,9 @@
 	</select>
 	
 	<select id="querySearchGoodsCount" parameterType="Goods" resultType="int">
-		SELECT count(*) from goods where name LIKE '${name}%'
+<!-- 		SELECT count(*) from goods where name LIKE '${name}%' -->
+		SELECT (t.AUTO_INCREMENT - 1) count from information_schema.`TABLES` t 
+		where t.TABLE_SCHEMA = 'myshop' AND t.TABLE_NAME = 'goods'
 	</select>
 
 	<!-- 查询商品按时间排序 -->
@@ -28,9 +30,12 @@
 	
 	<!-- 查询商品按点击数排序带分页 -->
 	<select id="queryGoodsClickcountPage" parameterType="PageModel" resultType="Goods">
-		SELECT 
-		g.id, g.name, g.img, g.marketprice, g.sellprice from goods g ORDER BY g.clickcount DESC 
-		LIMIT #{startIndex}, #{pageSize}
+<!-- 		SELECT  -->
+<!-- 		g.id, g.name, g.img, g.marketprice, g.sellprice from goods g ORDER BY g.clickcount DESC  -->
+<!-- 		LIMIT #{startIndex}, #{pageSize} -->
+		<![CDATA[SELECT g.id, g.name, g.img, g.marketprice, g.sellprice from goods g 
+		where g.clickcount <= (select clickcount from goods ORDER BY clickcount DESC LIMIT #{startIndex}, 1)
+		ORDER BY g.clickcount DESC LIMIT #{pageSize};]]>
 	</select>
 	
 	<!-- 查询商品按卖出数量排序 -->
@@ -40,30 +45,38 @@
 	
 	<!-- 查询商品按卖出数量排序带分页 -->
 	<select id="queryGoodsSellcountPage" parameterType="PageModel" resultType="Goods">
-		SELECT 
-		g.id, g.name, g.img, g.marketprice, g.sellprice from goods g ORDER BY g.sellcount DESC 
-		LIMIT #{startIndex}, #{pageSize}
+<!-- 		SELECT  -->
+<!-- 		g.id, g.name, g.img, g.marketprice, g.sellprice from goods g ORDER BY g.sellcount DESC  -->
+<!-- 		LIMIT #{startIndex}, #{pageSize} -->
+		<![CDATA[SELECT g.id, g.name, g.img, g.marketprice, g.sellprice 
+		from goods g 
+		WHERE g.sellcount <= (SELECT sellcount from goods ORDER BY sellcount LIMIT #{startIndex}, 1)
+		ORDER BY g.sellcount DESC LIMIT #{pageSize};]]>
 	</select>
 	
 	<!-- 按商品名称模糊查询 -->
 	<select id="queryGoodsByName" parameterType="PageModel" resultType="Goods">
 		select g.id, g.img, g.`name`, g.marketprice, g.sellprice from goods g where g.`name` LIKE '${pageQuery.name}%'
+		ORDER BY g.createtime DESC
 		LIMIT #{startIndex}, #{pageSize}
 	</select>
 	
 	<!-- 查询分类商品数量 -->
 	<select id="queryGoodsCategoryCount" parameterType="Goods" resultType="int">
-		select count(*) from category cat
-		LEFT JOIN goods g on cat.id = g.categoryId
-		where cat.id = #{categoryId}
+		select goodscount from category cat where cat.id = #{categoryId}
 	</select>
 	
-	<!-- 按分类名称查询商品 -->
+	<!-- 按分类查询商品 -->
 	<select id="queryGoodsByCategory" parameterType="PageModel"  resultType="Goods">
-		select g.id, g.img, g.`name`, g.marketprice, g.sellprice from category cat
-		LEFT JOIN goods g on cat.id = g.categoryId
-		where cat.id = #{pageQuery.categoryId}
-		LIMIT #{startIndex}, #{pageSize}
+<!-- 		select g.id, g.img, g.`name`, g.marketprice, g.sellprice from category cat -->
+<!-- 		LEFT JOIN goods g on cat.id = g.categoryId -->
+<!-- 		where cat.id = #{pageQuery.categoryId} -->
+<!-- 		LIMIT #{startIndex}, #{pageSize} -->
+		
+		<![CDATA[SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice from goods g 
+		where g.categoryId = #{pageQuery.categoryId} AND g.createtime <= (SELECT createtime from goods where categoryId = #{pageQuery.categoryId} ORDER BY createtime DESC LIMIT #{startIndex}, 1)
+		ORDER BY g.createtime DESC
+		LIMIT #{pageSize}]]>
 	</select>
 	
 	<resultMap type="Goods" id="queryGoodsByIdResultMap">
@@ -104,7 +117,8 @@
 	
 	<!-- 更新点击数 -->
 	<update id="updateClickCount" parameterType="Integer">
-		update goods set clickcount = clickcount + 1 where id = #{id}
+  		update goods set clickcount = clickcount + 1 where id = #{id}
+<!--  		update goods set marketprice = 150 where id = #{id} -->
 	</update>
 
 	<!-- 更新卖出数 -->
@@ -133,21 +147,23 @@
 	</update>
 	
 	<select id="preciseSearch" parameterType="PageModel" resultType="Goods">
-		<![CDATA[select t.id tid, t.`name` tname, g.id, g.`name`, g.img, g.marketprice, 
-		g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount from goodstag t, 
-		(select id, name, img, marketprice, sellprice, stock, clickcount, sellcount, commentCount, createtime from goods g 
-		where g.brandId = #{pageQuery.brandId} and g.categoryId = #{pageQuery.categoryId}) g
-		where t.goodsId = g.id and t.id = #{pageQuery.tagId} and g.sellprice >= #{pageQuery.startRange} and 
-		g.sellprice <= #{pageQuery.endRange} and g.`name` LIKE '${pageQuery.name}%'
+<!-- 		<![CDATA[select g.id, g.`name`, g.img, g.marketprice, g.sellprice from goods g FORCE INDEX(idx_sort)
+		where g.brandId = #{pageQuery.brandId} AND g.categoryId = #{pageQuery.categoryId} 
+		AND g.sellprice >= #{pageQuery.startRange} and g.sellprice <= #{pageQuery.endRange} and g.`name` LIKE '${pageQuery.name}%' 
 		ORDER BY g.clickcount DESC, g.sellcount DESC, g.commentCount DESC, g.createtime DESC 
-		LIMIT #{startIndex}, #{pageSize}]]>
+		LIMIT #{startIndex}, #{pageSize}]]> -->
+		
+		<![CDATA[select g.id, g.`name`, g.img, g.marketprice, g.sellprice from goods g JOIN 
+		(select id from goods
+		where brandId = #{pageQuery.brandId} AND categoryId = #{pageQuery.categoryId} AND sellprice >= #{pageQuery.startRange} 
+		AND sellprice <= #{pageQuery.endRange} and `name` LIKE '${pageQuery.name}%'
+		ORDER BY clickcount DESC, sellcount DESC, commentCount DESC, createtime DESC 
+		LIMIT #{startIndex}, #{pageSize}) g2 ON g.id = g2.id]]>
 	</select>
 	
 	<select id="preciseSearchCount" parameterType="Goods" resultType="int">
-		<![CDATA[select count(*) from goodstag t, 
-		(select id, name, img, marketprice, sellprice, stock, clickcount, sellcount, commentCount, createtime from goods g 
-		where g.brandId = #{brandId} and g.categoryId = #{categoryId}) g
-		where t.goodsId = g.id and t.id = #{tagId} and g.sellprice >= #{startRange} and 
-		g.sellprice <= #{endRange} and g.`name` LIKE '${name}%']]>
+		<![CDATA[select COUNT(*) from goods g
+		where g.brandId = #{brandId} AND g.categoryId = #{categoryId} 
+		AND g.sellprice >= #{startRange} and g.sellprice <= #{endRange} and g.`name` LIKE '${name}%']]>
 	</select>
 </mapper>

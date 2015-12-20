@@ -18,9 +18,25 @@
 	</resultMap>
 
 	<select id="queryRecommendBrand" resultMap="queryRecommendBrandResultMap">
-		select b.id bid, b.`name` bname, b.logo, b.url,  g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount  from brand b, goods g 
-		where b.isRecommend = 0 and b.id = g.brandId
-		ORDER BY g.clickcount DESC
-		LIMIT 10;
+<!-- 		select b.id bid, b.`name` bname, b.logo, b.url,  g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount  from brand b, goods g FORCE INDEX(idx_clickcount) -->
+<!-- 		where b.isRecommend = 0 and b.id = g.brandId -->
+<!-- 		ORDER BY g.clickcount DESC -->
+<!-- 		LIMIT 10; -->
+		SELECT b.id bid, b.`name` bname, b.logo, b.url, g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount, g.brandId
+		FROM `brand` b JOIN
+		((SELECT g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount, g.brandId
+		FROM goods g
+		WHERE g.brandId = 1
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		UNION ALL
+		(SELECT g.id, g.`name`, g.img, g.marketprice, g.sellprice, g.clickcount, g.brandId
+		FROM goods g
+		WHERE g.brandId = 2
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		) g ON g.brandId = b.id
+		where b.isRecommend = 0 
+		ORDER BY bid ASC
 	</select>
 </mapper>
