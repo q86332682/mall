@@ -54,10 +54,10 @@
 		ORDER BY g.sellcount DESC LIMIT #{pageSize};]]>
 	</select>
 	
-	<!-- 按商品名称模糊查询 -->
+	<!-- 按商品名称模糊查询(暂时去掉排序) -->
 	<select id="queryGoodsByName" parameterType="PageModel" resultType="Goods">
 		select g.id, g.img, g.`name`, g.marketprice, g.sellprice from goods g where g.`name` LIKE '${pageQuery.name}%'
-		ORDER BY g.createtime DESC
+<!-- 		ORDER BY g.createtime DESC -->
 		LIMIT #{startIndex}, #{pageSize}
 	</select>
 	
@@ -68,15 +68,15 @@
 	
 	<!-- 按分类查询商品 -->
 	<select id="queryGoodsByCategory" parameterType="PageModel"  resultType="Goods">
-<!-- 		select g.id, g.img, g.`name`, g.marketprice, g.sellprice from category cat -->
-<!-- 		LEFT JOIN goods g on cat.id = g.categoryId -->
-<!-- 		where cat.id = #{pageQuery.categoryId} -->
-<!-- 		LIMIT #{startIndex}, #{pageSize} -->
+<!--  		select g.id, g.img, g.`name`, g.marketprice, g.sellprice from category cat -->
+<!--  		LEFT JOIN goods g on cat.id = g.categoryId -->
+<!--  		where cat.id = #{pageQuery.categoryId} -->
+<!--  		LIMIT #{startIndex}, #{pageSize} -->
 		
-		<![CDATA[SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice from goods g 
-		where g.categoryId = #{pageQuery.categoryId} AND g.createtime <= (SELECT createtime from goods where categoryId = #{pageQuery.categoryId} ORDER BY createtime DESC LIMIT #{startIndex}, 1)
-		ORDER BY g.createtime DESC
-		LIMIT #{pageSize}]]>
+ 		<![CDATA[SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice from goods g
+ 		where g.categoryId = #{pageQuery.categoryId} AND g.createtime <= (SELECT createtime from goods where categoryId = #{pageQuery.categoryId} ORDER BY createtime DESC LIMIT #{startIndex}, 1)
+ 		ORDER BY g.createtime DESC
+ 		LIMIT #{pageSize}]]>
 	</select>
 	
 	<resultMap type="Goods" id="queryGoodsByIdResultMap">
@@ -113,6 +113,10 @@
 		LEFT JOIN goodsdesc gd ON g.id = gd.goodsId
 		LEFT JOIN goodstag t ON g.id = t.goodsId
 		where g.id = #{id}
+	</select>
+	
+	<select id="queryGoodsByIdSplit" parameterType="SQLAdapter" resultMap="queryGoodsByIdResultMap">
+		${sql}
 	</select>
 	
 	<!-- 更新点击数 -->

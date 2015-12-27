@@ -19,12 +19,24 @@
 		ORDER BY c.createtime DESC LIMIT 5;]]>
 	</select>
 	
+	<select id="queryCommentListSplit" parameterType="SQLAdapter" resultType="Goodscomment">
+		${sql}
+	</select>
+	
 	<insert id="insertComment" parameterType="Goodscomment">
 		INSERT INTO goodscomment(userId, goodsId, username, userlevel, score, content, createtime)
 		VALUES(#{userId}, #{goodsId}, #{username}, #{userlevel}, #{score}, #{content}, SYSDATE())
 	</insert>
 	
+	<insert id="insertCommentSplit" parameterType="SQLAdapter">
+		${sql}
+	</insert>
+	
 	<update id="updateComment" parameterType="Goodscomment">
 		UPDATE goodscomment SET score = #{score}, content = #{content} where id = #{id}
+	</update>
+	
+	<update id="updateCommentSplit" parameterType="SQLAdapter">
+		${sql}
 	</update>
 </mapper>

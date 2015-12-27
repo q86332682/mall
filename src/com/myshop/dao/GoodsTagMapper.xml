@@ -6,7 +6,15 @@
 		VALUES(#{name}, #{count}, #{userId}, #{goodsId})
 	</insert>
 	
+	<insert id="insertTagSplit" parameterType="SQLAdapter">
+		${sql}
+	</insert>
+	
 	<update id="updateTagCount" parameterType="Integer">
 		update goodstag set count = count + 1 where id = #{id}
+	</update>
+	
+	<update id="updateTagCountSplit" parameterType="SQLAdapter">
+		${sql}
 	</update>
 </mapper>

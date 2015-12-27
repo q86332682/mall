@@ -8,4 +8,8 @@
 			(#{item.name},#{item.marketprice},#{item.sellprice},#{item.num},#{item.orderId},#{item.goodsId})
 		</foreach>
 	</insert>
+	
+	<insert id="insertOrdergoodsSplit" parameterType="String">
+		#{sql}
+	</insert>
 </mapper>

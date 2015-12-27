@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.management.RuntimeErrorException;
 
@@ -30,9 +31,11 @@ import com.myshop.model.Goodscomment;
 import com.myshop.model.Order;
 import com.myshop.model.Ordergoods;
 import com.myshop.model.PageModel;
+import com.myshop.model.SQLAdapter;
 import com.myshop.model.Scorelog;
 import com.myshop.model.User;
 import com.myshop.model.Userlevel;
+import com.myshop.service.GoodsService;
 import com.myshop.service.UserService;
 
 @Service
@@ -72,6 +75,9 @@ public class UserServiceImpl implements UserService
 	@Autowired
 	private UserlevelMapper userlevelMapper;
 	
+	@Autowired
+	private GoodsService goodsService;
+	
 	@Transactional
 	@Override
 	public void register(User user)
@@ -109,7 +115,15 @@ public class UserServiceImpl implements UserService
 	public PageModel<Order> getMyOrderList(PageModel<Order> pageModel)
 	{
 		pageModel.setTotalCount(orderMapper.queryOrderCount(pageModel));
-		pageModel.setList(orderMapper.queryOrderPage(pageModel));
+		//未分表写法
+		//pageModel.setList(orderMapper.queryOrderPage(pageModel));
+		
+		//分表写法
+		Integer userId = pageModel.getPageQuery().getUserId();
+		String sql = "select o.* from `order" + (userId % 10) + "` o where o.userId = " + userId +
+					 " ORDER BY createtime LIMIT " + pageModel.getStartIndex() + "," + pageModel.getPageSize();
+		pageModel.setList(orderMapper.queryOrderPageSplit(new SQLAdapter(sql)));
+		
 		return pageModel;
 	}
 
@@ -117,11 +131,22 @@ public class UserServiceImpl implements UserService
 	@Override
 	public void buyGoods(Order order, List<Ordergoods> OrdergoodsList, User user)
 	{
-		orderMapper.insertOrder(order);
+		//未分表写法
+		//orderMapper.insertOrder(order);
+		
+		//分表写法
+		StringBuffer sql = new StringBuffer(128);
+		sql.append(" insert into `order").append(order.getUserId() % 10).append("`(name, addr, mobile, totalprice, userId, createtime) ");
+		sql.append(" VALUES('").append(order.getName()).append("','").append(order.getAddr()).append("','").append(order.getMobile()).append("',");
+		sql.append(order.getTotalprice()).append(",").append(order.getUserId()).append(", SYSDATE())");
+		SQLAdapter sqlAdapter = new SQLAdapter(sql.toString());
+		orderMapper.insertOrderSplit(sqlAdapter);
+		
+		
 		List<Integer> ids = new ArrayList<Integer>();
 		for(Ordergoods o : OrdergoodsList)
 		{
-			o.setOrderId(order.getId());
+			o.setOrderId(sqlAdapter.getId());
 			ids.add(o.getGoodsId());
 		}
 		ordergoodsMapper.insertOrdergoods(OrdergoodsList);
@@ -155,12 +180,23 @@ public class UserServiceImpl implements UserService
 	 */
 	public void publishComment(Goodscomment goodscomment, User user)
 	{
-		goodscommentMapper.insertComment(goodscomment);
+		//未分表写法
+		//goodscommentMapper.insertComment(goodscomment);
+		
+		//分表写法
+		StringBuffer sql = new StringBuffer(128);
+		sql.append(" INSERT INTO goodscomment").append(goodscomment.getGoodsId() % 10).append("(userId, goodsId, username, userlevel, score, content, createtime) ");
+		sql.append(" VALUES(").append(goodscomment.getUserId()).append(",").append(goodscomment.getGoodsId()).append(",'").append(goodscomment.getUsername()).append("','");
+		sql.append(goodscomment.getUserlevel()).append("',").append(goodscomment.getScore()).append(",'").append(goodscomment.getContent()).append("', SYSDATE()) ");
+		goodscommentMapper.insertCommentSplit(new SQLAdapter(sql.toString()));
+		
+		
 		goodsMapper.updateCommentCount(goodscomment.getGoodsId());
 		userMapper.updateCommentCount(goodscomment.getUserId());
 		user.setCommentCount(user.getCommentCount() + 1);
 		
-		Goods goods = goodsMapper.queryGoodsById(goodscomment.getGoodsId());
+		
+		Goods goods = goodsService.getGoodsById(goodscomment.getGoodsId(), null);
 		int commentCount = goods.getCommentCount();
 		Scorelog scorelog = new Scorelog();
 		scorelog.setUserId(goodscomment.getUserId());
@@ -186,7 +222,15 @@ public class UserServiceImpl implements UserService
 	 */
 	public void updateComment(Goodscomment goodscomment)
 	{
-		goodscommentMapper.updateComment(goodscomment);
+		//未分表写法
+		//goodscommentMapper.updateComment(goodscomment);
+		
+		//分表写法
+		StringBuffer sql = new StringBuffer(64);
+		sql.append(" UPDATE goodscomment").append(goodscomment.getId() % 10);
+		sql.append(" SET score = ").append(goodscomment.getScore()).append(", content = '").append(goodscomment.getContent());
+		sql.append("' where id = ").append(goodscomment.getId());
+		goodscommentMapper.updateCommentSplit(new SQLAdapter(sql.toString()));
 	}
 	
 	@Override
@@ -196,7 +240,16 @@ public class UserServiceImpl implements UserService
 	 */
 	public void addGoodsTag(GoodsTag tag)
 	{
-		goodsTagMapper.insertTag(tag);
+		//未分表写法
+		//goodsTagMapper.insertTag(tag);
+		
+		//分表写法
+		StringBuffer sql = new StringBuffer();
+		sql.append(" INSERT INTO goodstag").append(tag.getGoodsId() % 10);
+		sql.append("(name, count, userId, goodsId) ");
+		sql.append(" VALUES('").append(tag.getName()).append("',").append(tag.getCount()).
+		append(",").append(tag.getUserId()).append(",").append(tag.getGoodsId()).append(") ");
+		goodsTagMapper.insertTagSplit(new SQLAdapter(sql.toString()));
 	}
 	
 	@Override
@@ -206,7 +259,13 @@ public class UserServiceImpl implements UserService
 	 */
 	public void updateGoodsTag(Integer id)
 	{
-		goodsTagMapper.updateTagCount(id);
+		//未分表写法
+		//goodsTagMapper.updateTagCount(id);
+		
+		//分表写法
+		Random rand = new Random();
+		String sql = " update goodstag" + rand.nextInt(10) + " set count = count + 1 where id = " + id;
+		goodsTagMapper.updateTagCountSplit(new SQLAdapter(sql));
 	}
 	
 	@Transactional
@@ -217,7 +276,20 @@ public class UserServiceImpl implements UserService
 	 */
 	public void collectGoods(GoodsCollect goodsCollect, User user)
 	{
-		goodsCollectMapper.insertGoodsCollect(goodsCollect);
+		//未分表写法
+//		goodsCollectMapper.insertGoodsCollect(goodsCollect);
+//		userMapper.updateCollectCount(goodsCollect.getUserId());
+//		user.setCollectCount(user.getCollectCount() + 1);
+		
+		//分表写法
+		StringBuffer sql = new StringBuffer(128);
+		sql.append("INSERT INTO goodscollect").append((goodsCollect.getUserId() % 10));
+		sql.append("(userId, goodsId, goodsname, goodsimg, goodsMarketprice, goodsSellprice, createtime) ");
+		sql.append(" VALUES(").append(goodsCollect.getUserId()).append(",").append(goodsCollect.getGoodsId()).append(",'").
+		append(goodsCollect.getGoodsname());
+		sql.append("','").append(goodsCollect.getGoodsimg()).append("',").append(goodsCollect.getGoodsMarketprice()).append(",");
+		sql.append(goodsCollect.getGoodsSellprice()).append(",SYSDATE()) ");
+		goodsCollectMapper.insertGoodsCollectSplit(new SQLAdapter(sql.toString()));
 		userMapper.updateCollectCount(goodsCollect.getUserId());
 		user.setCollectCount(user.getCollectCount() + 1);
 	}
@@ -229,7 +301,16 @@ public class UserServiceImpl implements UserService
 	public void AddScore(Scorelog scorelog, User user)
 	{
 		userMapper.updateScore(scorelog);
-		scorelogMapper.insertScorelog(scorelog);
+		//未分表写法
+		//scorelogMapper.insertScorelog(scorelog);
+		
+		//分表写法
+		StringBuffer sql = new StringBuffer(128);
+		sql.append(" INSERT INTO scorelog").append(user.getId() % 10).append("(info, score, userId, createtime)");
+		sql.append(" values('").append(scorelog.getInfo()).append("',").append(scorelog.getScore()).append(",");
+		sql.append(scorelog.getUserId()).append(", SYSDATE())");
+		System.out.println(sql.toString());
+		scorelogMapper.insertScorelogSplit(new SQLAdapter(sql.toString()));
 		user = userMapper.queryUser(user);
 	}
 
@@ -242,12 +323,28 @@ public class UserServiceImpl implements UserService
 	@Override
 	public List<Scorelog> getScorelog(Integer userId)
 	{
-		return scorelogMapper.queryScorelog(userId);
+		List<Scorelog> scorelogs = null;
+		//未分表写法
+		//scorelogs = scorelogMapper.queryScorelog(userId);
+		
+		//分表写法
+		String sql = " SELECT * FROM `scorelog" + (userId % 10) + "` where userId = " + userId + " LIMIT 10 ";
+		scorelogs = scorelogMapper.queryScorelogSplit(new SQLAdapter(sql));
+		return scorelogs;
 	}
 
 	@Override
 	public List<GoodsCollect> getGoodsCollect(Integer userId)
 	{
-		return goodsCollectMapper.queryGoodsCollect(userId);
+		List<GoodsCollect> goodsCollects = null;
+		
+		//未分表写法
+		//goodsCollects = goodsCollectMapper.queryGoodsCollect(userId);
+		
+		//分表写法
+		String sql = "SELECT * FROM `goodscollect" + (userId % 10) + "` where userId = " + userId + " LIMIT 10";
+		goodsCollects = goodsCollectMapper.queryGoodsCollectSplit(new SQLAdapter(sql));
+		
+		return goodsCollects;
 	}
 }

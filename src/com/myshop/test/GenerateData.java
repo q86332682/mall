@@ -11,9 +11,16 @@ public class GenerateData
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
-		generateData(10000000);
+		//generateData(10000000);
+		//generateGoodsDescSplit(10000000, 10);
+		//generateGoodstagSplit(10000000, 10);
+		//generateGoodsCommentSplit(10000000, 10);
+		generateGoodscollectSplit(10000000, 10);
+		generateOrderSplit(10000000, 10);
+		generateOrderGoodsSplit(10000000, 10);
+		generateScoreLogSplit(10000000, 10);
 	}
 	
 	/**
@@ -103,6 +110,26 @@ public class GenerateData
 		}
 	}
 	
+	public static void generateScoreLogSplit(int datanum, int splitnum) throws Exception
+	{
+		PrintWriter[] pws = new PrintWriter[splitnum];
+		for(int i = 0;i < splitnum;i++)
+			pws[i] = new PrintWriter(new File(basedir, "scorelog" + i + ".dat"));
+		
+		
+		for(int i = 0;i < datanum;i++)
+		{					
+			String info = "info" + (i + 1);
+			Integer score = 0;
+			Integer userId = i + 1;
+			pws[userId % splitnum].println(info + "," + score + "," + userId);
+		}
+		
+		
+		for(int i = 0;i < splitnum;i++)
+			pws[i].close();
+	}
+	
 	/**
 	 * 生成订单数据
 	 * @param num 生成数量
@@ -136,6 +163,28 @@ public class GenerateData
 				pw.close();
 			}
 		}
+	}
+	
+	public static void generateOrderSplit(int datanum, int splitnum) throws Exception
+	{
+		PrintWriter[] pws = new PrintWriter[splitnum];
+		for(int i = 0;i < splitnum;i++)
+			pws[i] = new PrintWriter(new File(basedir, "order" + i + ".dat"));
+		
+		
+		for(int i = 0;i < datanum;i++)
+		{					
+			String name = "orderName" + (i + 1);
+			String addr = "orderAddr" + (i + 1);
+			String mobile = "13401974865";
+			String payWay = "支付宝";
+			Integer userId = (i + 1);
+			pws[userId % splitnum].println(name + "," + addr + "," + mobile + "," + payWay + "," + userId);
+		}
+		
+		
+		for(int i = 0;i < splitnum;i++)
+			pws[i].close();
 	}
 	
 	/**
@@ -172,6 +221,29 @@ public class GenerateData
 				pw.close();
 			}
 		}
+	}
+	
+	public static void generateOrderGoodsSplit(int datanum, int splitnum) throws Exception
+	{
+		PrintWriter[] pws = new PrintWriter[splitnum];
+		for(int i = 0;i < splitnum;i++)
+			pws[i] = new PrintWriter(new File(basedir, "ordergoods" + i + ".dat"));
+		
+		
+		for(int i = 0;i < datanum;i++)
+		{					
+			String name = "Java 编程词典";
+			String marketPrice = "150";
+			String sellPrice = "120";
+			String number = "1";
+			Integer orderId = i + 1;
+			Integer goodsId = i + 1;
+			pws[orderId % splitnum].println(name + "," + marketPrice + "," + sellPrice + "," + number + "," + orderId + "," + goodsId);
+		}
+		
+		
+		for(int i = 0;i < splitnum;i++)
+			pws[i].close();
 	}
 	
 	/**
@@ -241,6 +313,31 @@ public class GenerateData
 	}
 	
 	/**
+	 * 生成商品标签
+	 * @param num 生成数量
+	 */
+	public static void generateGoodstagSplit(int datanum, int splitnum) throws Exception
+	{
+		PrintWriter[] pws = new PrintWriter[splitnum];
+		for(int i = 0;i < splitnum;i++)
+			pws[i] = new PrintWriter(new File(basedir, "goodstag" + i + ".dat"));
+		
+		
+		for(int i = 0;i < datanum;i++)
+		{			
+			String name = "标签测试" + (i + 1);
+			String count = "1";
+			Integer userId = i + 1;
+			Integer goodsId = i + 1;
+			pws[goodsId % splitnum].println(name + "," + count + "," + userId + "," + goodsId);
+		}
+		
+		
+		for(int i = 0;i < splitnum;i++)
+			pws[i].close();
+	}
+	
+	/**
 	 * 生成商品评论
 	 * @param num 生成数量
 	 */
@@ -274,6 +371,30 @@ public class GenerateData
 				pw.close();
 			}
 		}
+	}
+	
+	public static void generateGoodsCommentSplit(int datanum, int splitnum) throws Exception
+	{
+		PrintWriter[] pws = new PrintWriter[splitnum];
+		for(int i = 0;i < splitnum;i++)
+			pws[i] = new PrintWriter(new File(basedir, "goodscomment" + i + ".dat"));
+		
+		
+		for(int i = 0;i < datanum;i++)
+		{					
+			Integer userId = i + 1;
+			Integer goodsId = i + 1;
+			String username = "user" + (i + 1);
+			String userlevel = "普通会员";
+			String score = "5";
+			String content = "很好";
+			String createtime = "2015-12-22 13:57:07";
+			pws[goodsId % splitnum].println(userId + "," + goodsId + "," + username + "," + userlevel + "," + score + "," + content + "," + createtime);
+		}
+		
+		
+		for(int i = 0;i < splitnum;i++)
+			pws[i].close();
 	}
 	
 	/**
@@ -312,6 +433,29 @@ public class GenerateData
 		}
 	}
 	
+	public static void generateGoodscollectSplit(int datanum, int splitnum) throws Exception
+	{
+		PrintWriter[] pws = new PrintWriter[splitnum];
+		for(int i = 0;i < splitnum;i++)
+			pws[i] = new PrintWriter(new File(basedir, "goodscollect" + i + ".dat"));
+		
+		
+		for(int i = 0;i < datanum;i++)
+		{			
+			Integer userId = i + 1;
+			Integer goodsId = i + 1;
+			String goodsname = "Java 编程词典";
+			String goodsimg = "201004201340260341.jpg";
+			String goodsMarketprice = "150";
+			String goodsSellprice = "120";
+			pws[userId % splitnum].println(userId + "," + goodsId + "," + goodsname + "," + goodsimg + "," + goodsMarketprice + "," + goodsSellprice);
+		}
+		
+		
+		for(int i = 0;i < splitnum;i++)
+			pws[i].close();
+	}
+	
 	/**
 	 * 生成商品数据
 	 * @param num 生成数量
@@ -329,14 +473,16 @@ public class GenerateData
 			{
 				String name = "商品" + (i + 1);
 				String img = "201004201340260341.jpg";
-				String desc = "descssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss";
+				//String desc = "descssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss";
 				String marketprice = "150";
 				String sellprice = "120";
 				Integer categoryId = rand.nextInt(349);
 				categoryId = categoryId == 0 ? 1 : categoryId;
 				Integer brandId = rand.nextInt(101);
 				brandId = brandId == 0 ? 1 : brandId;
-				pw.println(name + "," + img + "," + desc + "," + marketprice + "," + sellprice + "," + categoryId + "," + brandId);
+				//pw.println(name + "," + img + "," + desc + "," + marketprice + "," + sellprice + "," + categoryId + "," + brandId);
+				//pw.println(name + "," + img + "," + marketprice + "," + sellprice + "," + categoryId + "," + brandId);
+				pw.println(name);
 			}
 		}
 		catch(Exception e)
@@ -379,6 +525,27 @@ public class GenerateData
 				pw.close();
 			}
 		}
+	}
+	
+	public static void generateGoodsDescSplit(int datanum, int splitnum) throws Exception
+	{
+		PrintWriter[] pws = new PrintWriter[splitnum];
+		for(int i = 0;i < splitnum;i++)
+			pws[i] = new PrintWriter(new File(basedir, "goodsdesc" + i + ".dat"));
+		
+		
+		for(int i = 0;i < datanum;i++)
+		{			
+			String name = "速度-尺寸-操作温度|规格-上架时间-材质-型号-系列";
+			String val = "0-0-0|0-0-0-0-0";
+			Integer goodsId = i + 1;
+			String desc = "descssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss";
+			pws[goodsId % splitnum].println(name + "," + val + "," + goodsId + "," + desc);
+		}
+		
+		
+		for(int i = 0;i < splitnum;i++)
+			pws[i].close();
 	}
 	
 	public static void generateBrand(int num)

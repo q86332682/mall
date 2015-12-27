@@ -6,7 +6,15 @@
 		values(#{info}, #{score}, #{userId}, SYSDATE())
 	</insert>
 	
+	<insert id="insertScorelogSplit" parameterType="SQLAdapter">
+		${sql}
+	</insert>
+	
 	<select id="queryScorelog" parameterType="Integer" resultType="Scorelog">
 		SELECT * FROM `scorelog` where userId = #{id} LIMIT 10
+	</select>
+	
+	<select id="queryScorelogSplit" parameterType="SQLAdapter" resultType="Scorelog">
+		${sql}
 	</select>
 </mapper>

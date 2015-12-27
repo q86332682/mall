@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import com.myshop.model.GoodsTag;
 import com.myshop.model.Goodscomment;
 import com.myshop.model.Hotsearch;
 import com.myshop.model.PageModel;
+import com.myshop.model.SQLAdapter;
 import com.myshop.service.GoodsService;
 
 @Service
@@ -135,11 +137,26 @@ public class GoodsServiceImpl implements GoodsService
 	 */
 	public Goods getGoodsById(Integer id, HttpServletRequest req)
 	{
-		String submit = (String) req.getAttribute("submit");
-		if("true".equals(submit))
-			goodsMapper.updateClickCount(id);
+		if(req != null)
+		{
+			String submit = (String) req.getAttribute("submit");
+			if("true".equals(submit))
+				goodsMapper.updateClickCount(id);
+		}
 		
-		return goodsMapper.queryGoodsById(id);
+		Goods goods = null;
+		//未分表写法
+		//goods = goodsMapper.queryGoodsById(id);
+		
+		//分表写法
+		String sql = " select g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, " +
+					 " gd.desc, gd.id gdid, gd.`name` gdname, gd.val gdval, t.id tid, t.`name` tname, t.count tcount " +
+					 " from goods g " +
+					 " LEFT JOIN goodsdesc" + (id % 10) + " gd ON g.id = gd.goodsId " +
+					 " LEFT JOIN goodstag" + (id % 10) + " t ON g.id = t.goodsId " +
+					 " where g.id = " + id;
+		goods = goodsMapper.queryGoodsByIdSplit(new SQLAdapter(sql));
+		return goods;
 	}
 	
 	/**
@@ -167,8 +184,18 @@ public class GoodsServiceImpl implements GoodsService
 	 */
 	public PageModel<Goodscomment> getCommentList(PageModel<Goodscomment> pageModel)
 	{
+		//未分表写法
+//		pageModel.setTotalCount(goodscommentMapper.queryCommentCount(pageModel.getPageQuery()));
+//		pageModel.setList(goodscommentMapper.queryCommentList(pageModel));
+		
+		//分表写法
+		Integer goodsId = pageModel.getPageQuery().getGoodsId();
 		pageModel.setTotalCount(goodscommentMapper.queryCommentCount(pageModel.getPageQuery()));
-		pageModel.setList(goodscommentMapper.queryCommentList(pageModel));
+		String sql = " SELECT c.id, c.username, c.userlevel, c.score, c.content, c.createtime FROM `goodscomment" + (goodsId % 10) + "` c " +
+				" where c.goodsId = " + goodsId + " AND c.createtime <= (SELECT createtime from `goodscomment` where goodsId = " + goodsId + " ORDER BY createtime DESC LIMIT " + pageModel.getStartIndex() + ", 1) " +
+				" ORDER BY c.createtime DESC LIMIT " + pageModel.getPageSize();
+		pageModel.setList(goodscommentMapper.queryCommentListSplit(new SQLAdapter(sql)));
+		
 		return pageModel;
 	}
 	

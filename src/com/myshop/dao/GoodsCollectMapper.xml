@@ -6,7 +6,15 @@
 		VALUES(#{userId}, #{goodsId}, #{goodsname}, #{goodsimg}, #{goodsMarketprice}, #{goodsSellprice}, SYSDATE())
 	</insert>
 	
+	<insert id="insertGoodsCollectSplit" parameterType="SQLAdapter">
+		${sql}
+	</insert>
+	
 	<select id="queryGoodsCollect" parameterType="Integer" resultType="GoodsCollect">
 		SELECT * FROM `goodscollect` where userId = #{id} LIMIT 10
+	</select>
+	
+	<select id="queryGoodsCollectSplit" parameterType="SQLAdapter" resultType="GoodsCollect">
+		${sql}
 	</select>
 </mapper>

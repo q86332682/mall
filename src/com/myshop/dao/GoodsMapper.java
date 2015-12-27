@@ -6,6 +6,7 @@ import com.myshop.model.Goods;
 import com.myshop.model.Order;
 import com.myshop.model.Ordergoods;
 import com.myshop.model.PageModel;
+import com.myshop.model.SQLAdapter;
 
 public interface GoodsMapper
 {	
@@ -72,10 +73,16 @@ public interface GoodsMapper
 	public List<Goods> queryGoodsByCategory(PageModel<Goods> pageModel);
 	
 	/**
-	 * 按分类名称查询商品
+	 * 按id查询商品
 	 * @return
 	 */
 	public Goods queryGoodsById(Integer id);
+	
+	/**
+	 * 按id查询商品分表
+	 * @return
+	 */
+	public Goods queryGoodsByIdSplit(SQLAdapter sqlAdapter);
 	
 	/**
 	 * 更新点击数量

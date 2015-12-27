@@ -16,4 +16,10 @@ public interface OrdergoodsMapper
 	 * @param OrdergoodsList
 	 */
 	public void insertOrdergoods(List<Ordergoods> OrdergoodsList);
+	
+	/**
+	 * 批量插入订单商品列表分表
+	 * @param OrdergoodsList
+	 */
+	public void insertOrdergoodsSplit(String sql);
 }
