@@ -1,6 +1,10 @@
 package com.myshop.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 订单实体类
@@ -18,6 +22,34 @@ public class Order
 	private String state;
 	private Integer userId;
 	private Date createtime;
+	
+	public Order()
+	{
+		
+	}
+	
+	public Order(Map<String, String> map)
+	{
+		this.id = Integer.parseInt(map.get("id"));
+		this.name = map.get("name");
+		this.addr = map.get("addr");
+		this.mobile = map.get("mobile");
+		this.totalprice = Float.parseFloat(map.get("totalprice"));
+		this.payWay = map.get("payWay");
+		this.state = map.get("state");
+		this.userId = Integer.parseInt(map.get("userId"));
+		SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try
+		{
+			this.createtime = sdf.parse(map.get("createtime"));
+		} 
+		catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public Integer getId()
 	{
 		return id;
@@ -89,5 +121,21 @@ public class Order
 	public void setCreatetime(Date createtime)
 	{
 		this.createtime = createtime;
+	}
+	
+	public Map<String, String> toMap()
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", this.id + "");
+		map.put("name", this.name);
+		map.put("addr", this.addr);
+		map.put("mobile", this.mobile);
+		map.put("totalprice", this.totalprice + "");
+		map.put("payWay", "支付宝");
+		map.put("state", "已完成");
+		map.put("userId", this.userId + "");
+		SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		map.put("createtime", sdf.format(new Date()));
+		return map;
 	}
 }

@@ -1,6 +1,9 @@
 package com.myshop.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 用户实体类
@@ -23,6 +26,23 @@ public class User
 	private Integer collectCount;
 	private Integer orderCount;
 	private Date createtime;
+	
+	public User()
+	{
+		
+	}
+	
+	public User(Map<String, String> map)
+	{
+		this.username = map.get("username");
+		this.password = map.get("password");
+		this.email = map.get("email");
+		this.addr = map.get("addr");
+		this.mobile = map.get("mobile");
+		this.level = map.get("level");
+		this.percent = Integer.parseInt(map.get("percent"));
+	}
+	
 	public Integer getId()
 	{
 		return id;
@@ -135,5 +155,18 @@ public class User
 	public void setOrderCount(Integer orderCount)
 	{
 		this.orderCount = orderCount;
+	}
+	
+	public Map<String, String> toMap()
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("username", this.username);
+		map.put("password", this.password);
+		map.put("email", this.email);
+		map.put("addr", this.addr);
+		map.put("mobile", this.mobile);
+		map.put("level", this.level);
+		map.put("percent", this.percent + "");
+		return map;
 	}
 }

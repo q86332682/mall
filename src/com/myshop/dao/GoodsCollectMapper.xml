@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myshop.dao.GoodsCollectMapper">
-	<insert id="insertGoodsCollect" parameterType="GoodsCollect">
+	<insert id="insertGoodsCollect" parameterType="GoodsCollect" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO goodscollect(userId, goodsId, goodsname, goodsimg, goodsMarketprice, goodsSellprice, createtime)
 		VALUES(#{userId}, #{goodsId}, #{goodsname}, #{goodsimg}, #{goodsMarketprice}, #{goodsSellprice}, SYSDATE())
 	</insert>
 	
-	<insert id="insertGoodsCollectSplit" parameterType="SQLAdapter">
+	<insert id="insertGoodsCollectSplit" parameterType="SQLAdapter" useGeneratedKeys="true" keyProperty="id">
 		${sql}
 	</insert>
 	

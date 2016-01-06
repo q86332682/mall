@@ -39,4 +39,7 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
+  <listener>
+  	<listener-class>com.myshop.listener.InitLoadListener</listener-class>
+  </listener>
 </web-app>

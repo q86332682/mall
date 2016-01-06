@@ -27,8 +27,8 @@
 	
 	<!-- 查询订单数量 -->
 	<select id="queryOrderCount" parameterType="PageModel" resultType="int">
-<!-- 		select count(*) from `order` o where o.userId = #{pageQuery.userId} -->
-		SELECT orderCount from `user` u where u.id = #{pageQuery.userId}
+<!--  		select count(*) from `order` o where o.userId = #{pageQuery.userId} -->
+ 		SELECT orderCount from `user` u where u.id = #{pageQuery.userId}
 	</select>
 	
 	<!-- 查询订单分页 -->

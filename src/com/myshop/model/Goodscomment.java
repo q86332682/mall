@@ -1,6 +1,10 @@
 package com.myshop.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 商品评论实体类
@@ -17,6 +21,31 @@ public class Goodscomment
 	private Integer score;
 	private String content;
 	private Date createtime;
+	
+	public Goodscomment()
+	{
+		
+	}
+	
+	public Goodscomment(Map<String, String> map)
+	{
+		this.id = Integer.parseInt(map.get("id"));
+		this.username = map.get("username");
+		this.userlevel = map.get("userlevel");
+		this.score = Integer.parseInt(map.get("score"));
+		this.content = map.get("content");
+		SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try
+		{
+			this.createtime = sdf.parse(map.get("createtime"));
+		} 
+		catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public Integer getId()
 	{
 		return id;
@@ -80,5 +109,18 @@ public class Goodscomment
 	public void setCreatetime(Date createtime)
 	{
 		this.createtime = createtime;
+	}
+	
+	public Map<String, String> toMap()
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", this.id + "");
+		map.put("username", this.username);
+		map.put("userlevel", this.userlevel + "");
+		map.put("score", this.score + "");
+		map.put("content", this.content);
+		SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		map.put("createtime", sdf.format(new Date()));
+		return map;
 	}
 }

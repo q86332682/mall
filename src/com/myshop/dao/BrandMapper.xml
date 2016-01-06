@@ -39,4 +39,45 @@
 		where b.isRecommend = 0 
 		ORDER BY bid ASC
 	</select>
+	
+	<resultMap type="Brand" id="loadDataResultMap">
+		<id column="bid" property="id"/>
+		<result column="bname" property="name"/>
+		<result column="logo" property="logo"/>
+		<result column="url" property="url"/>
+		
+		<collection property="goods" ofType="Goods">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="img" property="img"/>
+			<result column="marketprice" property="marketprice"/>
+			<result column="sellprice" property="sellprice"/>
+			<result column="stock" property="stock"/>
+			<result column="clickcount" property="clickcount"/>
+			<result column="sellcount" property="sellcount"/>
+			<result column="commentCount" property="commentCount"/>
+			<result column="desc" property="desc"/>
+		</collection>
+	</resultMap>
+	
+	<select id="loadData" resultMap="loadDataResultMap">
+		SELECT b.id bid, b.`name` bname, b.logo, b.url, g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, g.desc
+		FROM `brand` b JOIN
+		((SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, g.desc, g.brandId
+		FROM goods g
+		WHERE g.brandId = 1
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		UNION ALL
+		(SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, g.desc, g.brandId
+		FROM goods g
+		WHERE g.brandId = 2
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		) g ON g.brandId = b.id
+		where b.isRecommend = 0 
+		ORDER BY bid ASC
+	</select>
+	
+	<cache></cache>
 </mapper>

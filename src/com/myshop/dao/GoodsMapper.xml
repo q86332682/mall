@@ -79,6 +79,13 @@
  		LIMIT #{pageSize}]]>
 	</select>
 	
+	<select id="preloadCategoryGoods" parameterType="Integer" resultType="Goods">
+		SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, g.desc from goods g
+ 		where g.categoryId = #{categoryId}
+ 		ORDER BY g.createtime DESC
+ 		LIMIT 0, 250
+	</select>
+	
 	<resultMap type="Goods" id="queryGoodsByIdResultMap">
 		<id column="id" property="id"/>
 		<result column="img" property="img"/>
@@ -150,6 +157,24 @@
 		</foreach>
 	</update>
 	
+	<update id="updateSellCountAndStock" parameterType="List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			update goods
+			<set>
+				sellcount = sellcount + #{item.num}
+			</set>
+			where id = #{item.goodsId}
+		</foreach>
+		;
+		<foreach collection="list" item="item" index="index" separator=";">
+			update goods
+			<set>
+				stock = stock - #{item.num}
+			</set>
+			where id = #{item.goodsId}
+		</foreach>
+	</update>
+	
 	<select id="preciseSearch" parameterType="PageModel" resultType="Goods">
 <!-- 		<![CDATA[select g.id, g.`name`, g.img, g.marketprice, g.sellprice from goods g FORCE INDEX(idx_sort)
 		where g.brandId = #{pageQuery.brandId} AND g.categoryId = #{pageQuery.categoryId} 
@@ -169,5 +194,28 @@
 		<![CDATA[select COUNT(*) from goods g
 		where g.brandId = #{brandId} AND g.categoryId = #{categoryId} 
 		AND g.sellprice >= #{startRange} and g.sellprice <= #{endRange} and g.`name` LIKE '${name}%']]>
+	</select>
+	
+	<select id="loadData" resultType="Goods">
+		(select g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, 
+		g.desc, gd.id gdid, gd.`name` gdname, gd.val gdval, t.id tid, t.`name` tname, t.count tcount
+		from goods g
+		LEFT JOIN goodsdesc gd ON g.id = gd.goodsId
+		LEFT JOIN goodstag t ON g.id = t.goodsId
+		ORDER BY g.createtime DESC LIMIT 250)
+		UNION ALL
+		(select g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, 
+		g.desc, gd.id gdid, gd.`name` gdname, gd.val gdval, t.id tid, t.`name` tname, t.count tcount
+		from goods g
+		LEFT JOIN goodsdesc gd ON g.id = gd.goodsId
+		LEFT JOIN goodstag t ON g.id = t.goodsId
+		ORDER BY clickcount DESC LIMIT 250)
+		UNION ALL
+		(select g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, 
+		g.desc, gd.id gdid, gd.`name` gdname, gd.val gdval, t.id tid, t.`name` tname, t.count tcount
+		from goods g
+		LEFT JOIN goodsdesc gd ON g.id = gd.goodsId
+		LEFT JOIN goodstag t ON g.id = t.goodsId
+		ORDER BY sellcount DESC LIMIT 250)
 	</select>
 </mapper>

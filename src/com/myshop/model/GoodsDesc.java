@@ -1,5 +1,8 @@
 package com.myshop.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 商品信息描述实体类
  * @author Administrator
@@ -51,5 +54,14 @@ public class GoodsDesc
 	public void setGoodsId(Integer goodsId)
 	{
 		this.goodsId = goodsId;
+	}
+	public Map<String, String> toMap()
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", this.id + "");
+		map.put("name", this.name);
+		map.put("val", this.val);
+		map.put("goodsId", this.goodsId + "");
+		return map;
 	}
 }

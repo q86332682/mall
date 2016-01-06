@@ -57,4 +57,10 @@ public interface GoodscommentMapper
 	 * @param comment
 	 */
 	public void updateCommentSplit(SQLAdapter sqlAdapter);
+	
+	/**
+	 * 预加载商品评论
+	 * @param goodsId
+	 */
+	public List<Goodscomment> preloadGoodsComment(Integer goodsId);
 }

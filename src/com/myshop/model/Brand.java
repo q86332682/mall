@@ -1,14 +1,21 @@
 package com.myshop.model;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 品牌实体类
  * @author Administrator
  *
  */
-public class Brand
+public class Brand implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private String logo;
@@ -62,5 +69,15 @@ public class Brand
 	public void setGoods(List<Goods> goods)
 	{
 		this.goods = goods;
+	}
+	
+	public Map<String, String> toMap()
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", this.id + "");
+		map.put("name", this.name);
+		map.put("logo", this.logo);
+		map.put("url", this.url);
+		return map;
 	}
 }

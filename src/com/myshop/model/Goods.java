@@ -1,15 +1,22 @@
 package com.myshop.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品实体类
  * @author Administrator
  *
  */
-public class Goods
+public class Goods implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private String img;
@@ -28,6 +35,25 @@ public class Goods
 	private Integer tagId;
 	private Integer startRange;
 	private Integer endRange;
+	
+	public Goods()
+	{
+		
+	}
+	
+	public Goods(Map<String, String> map)
+	{
+		this.id = Integer.parseInt(map.get("id"));
+		this.img = map.get("img");
+		this.name = map.get("name");
+		this.marketprice = Float.parseFloat(map.get("marketprice"));
+		this.sellprice = Float.parseFloat(map.get("sellprice"));
+		this.stock = Integer.parseInt(map.get("stock"));
+		this.clickcount = Integer.parseInt(map.get("clickcount"));
+		this.sellcount = Integer.parseInt(map.get("sellcount"));
+		this.commentCount = Integer.parseInt(map.get("commentCount"));
+		this.desc = map.get("desc");
+	}
 	
 	public Integer getId()
 	{
@@ -172,5 +198,21 @@ public class Goods
 	public void setEndRange(Integer endRange)
 	{
 		this.endRange = endRange;
+	}
+	
+	public Map<String, String> toMap()
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", this.id + "");
+		map.put("img", this.img);
+		map.put("name", this.name);
+		map.put("marketprice", this.marketprice + "");
+		map.put("sellprice", this.sellprice + "");
+		map.put("stock", this.stock + "");
+		map.put("clickcount", this.clickcount + "");
+		map.put("sellcount", this.sellcount + "");
+		map.put("commentCount", this.commentCount + "");
+		map.put("desc", this.desc);
+		return map;
 	}
 }

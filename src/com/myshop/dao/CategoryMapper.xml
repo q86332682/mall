@@ -61,4 +61,44 @@
 		where c1.isRecommend = 0 
 		ORDER BY c1id ASC
 	</select>
+	
+	<!-- loadDataresultMap -->
+	<resultMap type="Category" id="loadDataresultMap">
+		<id column="c1id" property="id"/>
+		<result column="c1name" property="name"/>
+		<collection property="goods" ofType="Goods">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="img" property="img"/>
+			<result column="marketprice" property="marketprice"/>
+			<result column="sellprice" property="sellprice"/>
+			<result column="stock" property="stock"/>
+			<result column="clickcount" property="clickcount"/>
+			<result column="sellcount" property="sellcount"/>
+			<result column="commentCount" property="commentCount"/>
+			<result column="desc" property="desc"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 载入数据 -->
+	<select id="loadData" resultMap="loadDataresultMap">
+		SELECT c1.id c1id, c1.`name` c1name, g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, g.desc
+		FROM `category` c1 JOIN
+		((SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, g.desc, g.categoryId
+		FROM goods g FORCE INDEX(idx_categoryId_createtime)
+		WHERE g.categoryId = 330
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		UNION ALL
+		(SELECT g.id, g.img, g.`name`, g.marketprice, g.sellprice, g.stock, g.clickcount, g.sellcount, g.commentCount, g.desc, g.categoryId
+		FROM goods g FORCE INDEX(idx_categoryId_createtime)
+		WHERE g.categoryId = 331
+		ORDER BY g.createtime DESC
+		LIMIT 10)
+		) g ON g.categoryId = c1.id
+		where c1.isRecommend = 0 
+		ORDER BY c1id ASC
+	</select>
+	
+	<cache></cache>
 </mapper>

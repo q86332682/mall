@@ -73,6 +73,13 @@ public interface GoodsMapper
 	public List<Goods> queryGoodsByCategory(PageModel<Goods> pageModel);
 	
 	/**
+	 * 预加载分类商品
+	 * @param categoryId
+	 * @return
+	 */
+	public List<Goods> preloadCategoryGoods(Integer categoryId);
+	
+	/**
 	 * 按id查询商品
 	 * @return
 	 */
@@ -109,6 +116,12 @@ public interface GoodsMapper
 	public void updateStokc(List<Ordergoods> OrdergoodsList);
 	
 	/**
+	 * 更新卖出数和库存
+	 * @param OrdergoodsList
+	 */
+	public void updateSellCountAndStock(List<Ordergoods> OrdergoodsList);
+	
+	/**
 	 * 精确查找
 	 * @param pageModel
 	 * @return
@@ -121,4 +134,10 @@ public interface GoodsMapper
 	 * @return
 	 */
 	public int preciseSearchCount(Goods goods);
+	
+	/**
+	 * 初始化载入数据
+	 * @return
+	 */
+	public List<Goods> loadData();
 }

@@ -16,4 +16,10 @@ public interface BrandMapper
 	 * @return
 	 */
 	public List<Brand> queryRecommendBrand();
+	
+	/**
+	 * 载入数据
+	 * @return
+	 */
+	public List<Brand> loadData();
 }

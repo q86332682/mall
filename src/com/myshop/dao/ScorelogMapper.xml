@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myshop.dao.ScorelogMapper">
-	<insert id="insertScorelog" parameterType="Scorelog">
+	<insert id="insertScorelog" parameterType="Scorelog" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO scorelog(info, score, userId, createtime)
 		values(#{info}, #{score}, #{userId}, SYSDATE())
 	</insert>
 	
-	<insert id="insertScorelogSplit" parameterType="SQLAdapter">
+	<insert id="insertScorelogSplit" parameterType="SQLAdapter" useGeneratedKeys="true" keyProperty="id">
 		${sql}
 	</insert>
 	
-	<select id="queryScorelog" parameterType="Integer" resultType="Scorelog">
+	<select id="queryScorelog" parameterType="Integer" resultType="Scorelog" >
 		SELECT * FROM `scorelog` where userId = #{id} LIMIT 10
 	</select>
 	

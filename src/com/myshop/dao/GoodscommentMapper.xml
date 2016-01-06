@@ -15,7 +15,7 @@
 <!-- 		LIMIT #{startIndex}, #{pageSize} -->
 		<![CDATA[SELECT c.id, c.username, c.userlevel, c.score, c.content, c.createtime 
 		FROM `goodscomment` c 
-		where c.goodsId = 1 AND c.createtime <= (SELECT createtime from `goodscomment` where goodsId = 1 ORDER BY createtime DESC LIMIT 2000, 1)
+		where c.goodsId = #{pageQuery.goodsId} AND c.createtime <= (SELECT createtime from `goodscomment` where goodsId = #{pageQuery.goodsId} ORDER BY createtime DESC LIMIT 2000, 1)
 		ORDER BY c.createtime DESC LIMIT 5;]]>
 	</select>
 	
@@ -23,12 +23,12 @@
 		${sql}
 	</select>
 	
-	<insert id="insertComment" parameterType="Goodscomment">
+	<insert id="insertComment" parameterType="Goodscomment" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO goodscomment(userId, goodsId, username, userlevel, score, content, createtime)
 		VALUES(#{userId}, #{goodsId}, #{username}, #{userlevel}, #{score}, #{content}, SYSDATE())
 	</insert>
 	
-	<insert id="insertCommentSplit" parameterType="SQLAdapter">
+	<insert id="insertCommentSplit" parameterType="SQLAdapter" useGeneratedKeys="true" keyProperty="id">
 		${sql}
 	</insert>
 	
@@ -39,4 +39,10 @@
 	<update id="updateCommentSplit" parameterType="SQLAdapter">
 		${sql}
 	</update>
+	
+	<select id="preloadGoodsComment" parameterType="Integer" resultType="Goodscomment">
+		SELECT c.id, c.username, c.userlevel, c.score, c.content, c.createtime FROM `goodscomment` c 
+		where c.goodsId = #{goodsId}
+		ORDER BY c.createtime DESC LIMIT 250;
+	</select>
 </mapper>

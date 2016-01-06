@@ -21,4 +21,9 @@ public interface CategoryMapper
 	 * 查询推荐分类
 	 */
 	public List<Category> queryRecommendCategory();
+	
+	/**
+	 * 载入数据
+	 */
+	public List<Category> loadData();
 }
